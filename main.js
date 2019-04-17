@@ -72,3 +72,11 @@ chessboard.insertAdjacentHTML('beforeend', `<div class="black">&#9814;</div>
 <div class="white">&#9815;</div>
 <div class="black">&#9816;</div>
 <div class="white">&#9814;</div>`);
+
+document.addEventListener('click', function (event) {
+	
+	// check if element selected contains either black or white
+	if (!event.target.classList.contains('black') && !event.target.classList.contains('white')) return;
+
+	event.target.classList.add("highlight");
+}, false);
