@@ -79,4 +79,17 @@ document.addEventListener('click', function (event) {
 	if (!event.target.classList.contains('black') && !event.target.classList.contains('white')) return;
 
 	event.target.classList.add("highlight");
+
+	console.log("event.target",event.target);
+	console.log("event.target closest",event.target.closest(":not(div)"));
+	console.log("this square is ",Array.prototype.indexOf.call(chessboard.children, event.target));
+
+	if(event.target.innerHTML.length) {
+		event.target.classList.add("moves");
+		if (event.target.innerHTML == "♟") {
+			console.log("it's a pawn!");
+			event.target.closest("div").classList.add("moves");
+		}
+	}
+
 }, false);
