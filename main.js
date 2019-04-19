@@ -81,8 +81,7 @@ document.addEventListener('click', function (event) {
 	event.target.classList.add("highlight");
 
 	console.log("event.target",event.target);
-	console.log("event.target closest",event.target.closest(":not(div)"));
-	console.log("this square is ",Array.prototype.indexOf.call(chessboard.children, event.target));
+	console.log("this square is ",getBoardNotation(event.target));
 
 	if(event.target.innerHTML.length) {
 		event.target.classList.add("moves");
@@ -93,3 +92,21 @@ document.addEventListener('click', function (event) {
 	}
 
 }, false);
+
+function getBoardNotation(paramTarget) {
+	var index = Array.prototype.indexOf.call(chessboard.children, paramTarget);
+	var rank;
+	var file;
+
+	var rank_arr = [8,7,6,5,4,3,2,1];
+	var file_arr = ["a","b","c","d","e","f","g","h"];
+
+	rank = rank_arr[Math.floor(index/8)];
+	file = file_arr[index % 8];
+
+	console.log("rank", rank);
+	console.log("file", file);
+	console.log("algebraic notation", file+rank);
+
+	return index;
+}
