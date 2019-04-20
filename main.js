@@ -74,20 +74,23 @@ chessboard.insertAdjacentHTML('beforeend', `<div class="black">&#9814;</div>
 <div class="white">&#9814;</div>`);
 
 document.addEventListener('click', function (event) {
-
+	var boardNotation;
+	var possibleMoves;
 	// check if element selected contains either black or white
 	if (!event.target.classList.contains('black') && !event.target.classList.contains('white')) return;
 
 	event.target.classList.add("highlight");
 
-	console.log("event.target",event.target);
-	console.log("this square is ",getBoardNotation(event.target));
+	boardNotation = getBoardNotation(event.target);
+	console.log("this square is ", boardNotation);
 
 	if(event.target.innerHTML.length) {
-		event.target.classList.add("moves");
+		event.target.classList.add("selected");
 		if (event.target.innerHTML == "♟") {
 			console.log("it's a pawn!");
-			event.target.closest("div").classList.add("moves");
+			possibleMoves = getPossibleMoves(boardNotation,"pawn");
+			console.log("possible moves",possibleMoves);
+			highlightPossibleMoves(possibleMoves);
 		}
 	}
 
@@ -104,9 +107,23 @@ function getBoardNotation(paramTarget) {
 	rank = rank_arr[Math.floor(index/8)];
 	file = file_arr[index % 8];
 
-	console.log("rank", rank);
-	console.log("file", file);
 	console.log("algebraic notation", file+rank);
 
 	return index;
+}
+
+function getPossibleMoves(boardIndex,boardPiece) {
+	var moveset = [];
+	if(boardPiece == 'pawn') {
+		moveset.push(boardIndex+8);
+		moveset.push(boardIndex+16);
+	}
+	return moveset;
+}
+
+function highlightPossibleMoves(movelist) {
+	movelist.map(function(value){
+		console.log("each",value);
+		document.querySelectorAll('#chessboard')[0].children[value].classList.add("moves");
+	});
 }
