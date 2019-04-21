@@ -87,8 +87,14 @@ document.addEventListener('click', function (event) {
 	if(event.target.innerHTML.length) {
 		event.target.classList.add("selected");
 		if (event.target.innerHTML == "♟") {
-			console.log("it's a pawn!");
-			possibleMoves = getPossibleMoves(boardNotation,"pawn");
+			console.log("it's a black pawn!");
+			possibleMoves = getPossibleMoves(boardNotation,"black pawn");
+			console.log("possible moves",possibleMoves);
+			highlightPossibleMoves(possibleMoves);
+		}
+		if (event.target.innerHTML == "♙") {
+			console.log("it's a white pawn!");
+			possibleMoves = getPossibleMoves(boardNotation,"white pawn");
 			console.log("possible moves",possibleMoves);
 			highlightPossibleMoves(possibleMoves);
 		}
@@ -114,9 +120,13 @@ function getBoardNotation(paramTarget) {
 
 function getPossibleMoves(boardIndex,boardPiece) {
 	var moveset = [];
-	if(boardPiece == 'pawn') {
+	if(boardPiece == 'black pawn') {
 		moveset.push(boardIndex+8);
 		moveset.push(boardIndex+16);
+	}
+	if(boardPiece == 'white pawn') {
+		moveset.push(boardIndex-8);
+		moveset.push(boardIndex-16);
 	}
 	return moveset;
 }
