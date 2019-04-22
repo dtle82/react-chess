@@ -79,6 +79,9 @@ document.addEventListener('click', function (event) {
 	// check if element selected contains either black or white
 	if (!event.target.classList.contains('black') && !event.target.classList.contains('white')) return;
 
+	// clear the board of all previous highlight/select classes
+	clear_board();
+
 	event.target.classList.add("highlight");
 
 	boardNotation = getBoardNotation(event.target);
@@ -135,5 +138,14 @@ function highlightPossibleMoves(movelist) {
 	movelist.map(function(value){
 		console.log("each",value);
 		document.querySelectorAll('#chessboard')[0].children[value].classList.add("moves");
+	});
+}
+
+function clear_board() {
+	Array.from(document.querySelectorAll('#chessboard')[0].children).map(function(ele){
+		console.log("element",ele);
+		ele.classList.remove("selected");
+		ele.classList.remove("highlight");
+		ele.classList.remove("moves");
 	});
 }
