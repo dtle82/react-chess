@@ -1,1 +1,2 @@
-http://code2care.org/pages/chessboard-with-pieces-using-pure-html-and-css/
+Javascript CSS Chess
+=====================
