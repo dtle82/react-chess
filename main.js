@@ -73,6 +73,15 @@ chessboard.insertAdjacentHTML('beforeend', `<div class="black">&#9814;</div>
 <div class="black">&#9816;</div>
 <div class="white">&#9814;</div>`);
 
+chessboard.insertAdjacentHTML('beforeend', `<div class="bottom-notation">a</div>
+    <div class="bottom-notation">b</div>
+    <div class="bottom-notation">c</div>
+    <div class="bottom-notation">d</div>
+    <div class="bottom-notation">e</div>
+    <div class="bottom-notation">f</div>
+    <div class="bottom-notation">g</div>
+    <div class="bottom-notation">h</div>`);
+
 document.addEventListener('click', function (event) {
 	var boardNotation;
 	var possibleMoves;
