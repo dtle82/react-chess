@@ -1,2 +1,2 @@
-Chess in Javascript CSS 
+Chess in Javascript & CSS 
 =====================
