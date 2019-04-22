@@ -136,14 +136,12 @@ function getPossibleMoves(boardIndex,boardPiece) {
 
 function highlightPossibleMoves(movelist) {
 	movelist.map(function(value){
-		console.log("each",value);
 		document.querySelectorAll('#chessboard')[0].children[value].classList.add("moves");
 	});
 }
 
 function clear_board() {
 	Array.from(document.querySelectorAll('#chessboard')[0].children).map(function(ele){
-		console.log("element",ele);
 		ele.classList.remove("selected");
 		ele.classList.remove("highlight");
 		ele.classList.remove("moves");
