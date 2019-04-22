@@ -110,6 +110,18 @@ document.addEventListener('click', function (event) {
 			console.log("possible moves",possibleMoves);
 			highlightPossibleMoves(possibleMoves, "white");
 		}
+		if (event.target.innerHTML == "♞") {
+			console.log("it's a black knight!");
+			possibleMoves = getPossibleMoves(boardNotation,"black knight");
+			console.log("possible moves",possibleMoves);
+			highlightPossibleMoves(possibleMoves, "black");
+		}
+		if (event.target.innerHTML == "♘") {
+			console.log("it's a white knight!");
+			possibleMoves = getPossibleMoves(boardNotation,"white knight");
+			console.log("possible moves",possibleMoves);
+			highlightPossibleMoves(possibleMoves, "white");
+		}
 	}
 
 }, false);
@@ -139,6 +151,14 @@ function getPossibleMoves(boardIndex,boardPiece) {
 	if(boardPiece == 'white pawn') {
 		moveset.push(boardIndex-8);
 		moveset.push(boardIndex-16);
+	}
+	if(boardPiece == 'black knight') {
+		moveset.push(boardIndex+15);
+		moveset.push(boardIndex+17);
+	}
+	if(boardPiece == 'white knight') {
+		moveset.push(boardIndex-15);
+		moveset.push(boardIndex-17);
 	}
 	return moveset;
 }
