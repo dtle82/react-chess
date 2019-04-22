@@ -102,13 +102,13 @@ document.addEventListener('click', function (event) {
 			console.log("it's a black pawn!");
 			possibleMoves = getPossibleMoves(boardNotation,"black pawn");
 			console.log("possible moves",possibleMoves);
-			highlightPossibleMoves(possibleMoves);
+			highlightPossibleMoves(possibleMoves, "black");
 		}
 		if (event.target.innerHTML == "♙") {
 			console.log("it's a white pawn!");
 			possibleMoves = getPossibleMoves(boardNotation,"white pawn");
 			console.log("possible moves",possibleMoves);
-			highlightPossibleMoves(possibleMoves);
+			highlightPossibleMoves(possibleMoves, "white");
 		}
 	}
 
@@ -143,9 +143,14 @@ function getPossibleMoves(boardIndex,boardPiece) {
 	return moveset;
 }
 
-function highlightPossibleMoves(movelist) {
+function highlightPossibleMoves(movelist,color) {
 	movelist.map(function(value){
-		document.querySelectorAll('#chessboard')[0].children[value].classList.add("moves");
+		if (color == "black") {
+			document.querySelectorAll('#chessboard')[0].children[value].classList.add("black-moves");
+		}
+		if (color == "white") {
+			document.querySelectorAll('#chessboard')[0].children[value].classList.add("white-moves");
+		}
 	});
 }
 
@@ -153,6 +158,7 @@ function clear_board() {
 	Array.from(document.querySelectorAll('#chessboard')[0].children).map(function(ele){
 		ele.classList.remove("selected");
 		ele.classList.remove("highlight");
-		ele.classList.remove("moves");
+		ele.classList.remove("black-moves");
+		ele.classList.remove("white-moves");
 	});
 }

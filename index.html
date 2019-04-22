@@ -74,20 +74,32 @@ h1 {
     /* border: 2px solid blue; */
     box-sizing:border-box;
     border: 1px solid blue;
-    background-color: #CDD177;
+    background-color: #666F41;
     background-image: none;
 }
-.moves {
-    /* border: 2px solid red; */
+.white-moves, .black-moves {
     box-sizing:border-box;
-    border: 1px solid blue;
-    background-color: #CDD177;
+    border: 1px solid white;
     background-image: none;
+    font-size:16px;
+}
+.white-moves::after {
+    content: "⚪";
+    display:block;
+    margin: 26px;
+    opacity: .5;
+}
+.black-moves::after {
+    content: "⚫";
+    display:block;
+    margin: 26px;
+    opacity: .5;
 }
 
-.moves:hover {
+.black-moves:hover, .white-moves:hover {
     border: 1px solid blue;
     box-sizing:border-box;
+    background-color: #666F41;
 }
 </style>
 </head>
