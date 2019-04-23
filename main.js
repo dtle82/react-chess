@@ -1,3 +1,23 @@
+class Piece {
+    constructor(name, moveset,initial,emoji) {
+        this.name = name;
+        this.moveset = moveset;
+        this.initial = initial;
+        this.emoji = emoji;
+    }
+
+    getName() {
+        return "This is a " + this.name;
+    }
+}
+
+let blackPawn = new Piece("black pawn",[8,16],"yes","♟");
+let whitePawn = new Piece("white pawn",[-8,-16],"yes","♙");
+let blackKnight = new Piece("black knight",[15,17],"yes","♞");
+let whiteKnight = new Piece("white knight",[-15,-17],"yes","♘");
+
+console.log("blackPawn",blackPawn.getName());
+console.log("blackPawn",blackKnight.getName());
 
 var originalPieceLocation;
 var originalSquare;
@@ -103,7 +123,6 @@ document.addEventListener('click', function (event) {
 
     originalPieceLocation = event.target.innerHTML;
     originalSquare = event.target;
-	console.log("originalPieceLocation",originalPieceLocation);
 
 	// clear the board of all previous highlight/select classes
 	clear_board();
@@ -183,10 +202,14 @@ function getPossibleMoves(boardIndex,boardPiece) {
 function highlightPossibleMoves(movelist,color) {
 	movelist.map(function(value){
 		if (color == "black") {
-			document.querySelectorAll('#chessboard')[0].children[value].classList.add("black-moves");
+            if (document.querySelectorAll('#chessboard')[0].children[value].innerHTML.length == 0) {
+                document.querySelectorAll('#chessboard')[0].children[value].classList.add("black-moves");
+            }
 		}
 		if (color == "white") {
-			document.querySelectorAll('#chessboard')[0].children[value].classList.add("white-moves");
+            if (document.querySelectorAll('#chessboard')[0].children[value].innerHTML.length == 0) {
+                document.querySelectorAll('#chessboard')[0].children[value].classList.add("white-moves");
+            }
 		}
 	});
 }
