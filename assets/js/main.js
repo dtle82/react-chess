@@ -158,13 +158,13 @@ document.addEventListener('click', function (event) {
 		}
 		if (event.target.innerHTML == "♞") {
 			console.log("it's a black knight!");
-			possibleMoves = getPossibleMoves(boardNotation,"black knight");
+			possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"black knight"));
 			console.log("possible moves",possibleMoves);
 			highlightPossibleMoves(possibleMoves, "black");
 		}
 		if (event.target.innerHTML == "♘") {
 			console.log("it's a white knight!");
-			possibleMoves = getPossibleMoves(boardNotation,"white knight");
+			possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"white knight"));
 			console.log("possible moves",possibleMoves);
 			highlightPossibleMoves(possibleMoves, "white");
 		}
@@ -209,12 +209,22 @@ function getPossibleMoves(boardIndex,boardPiece) {
 		moveset.push(boardIndex-17);
 	}
 	if(boardPiece == 'white knight') {
+        moveset.push(boardIndex+6);
+		moveset.push(boardIndex+10);
 		moveset.push(boardIndex+15);
 		moveset.push(boardIndex+17);
+        moveset.push(boardIndex-6);
+        moveset.push(boardIndex-10);
 		moveset.push(boardIndex-15);
 		moveset.push(boardIndex-17);
 	}
 	return moveset;
+}
+
+function validateMoveset(moveset) {
+    let validatedMoves = moveset.filter(move => move > 0 && move <= 63 );
+    console.log("validatedMoves",validatedMoves);
+    return validatedMoves;
 }
 
 function highlightPossibleMoves(movelist,color) {
