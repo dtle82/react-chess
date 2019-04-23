@@ -227,7 +227,7 @@ function validateMoveset(moveset) {
     console.log("validatedMoves",validatedMoves);
     return validatedMoves;
 }
-
+/** There's a check to make sure the square is not already occupied by another piece */
 function highlightPossibleMoves(movelist,color) {
 	movelist.map(function(value){
 		if (color == "black") {
