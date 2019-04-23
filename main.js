@@ -1,3 +1,7 @@
+
+var originalPieceLocation;
+var originalSquare;
+
 var chessboard = document.getElementById("chessboard");
 
 // first row
@@ -85,8 +89,21 @@ chessboard.insertAdjacentHTML('beforeend', `<div class="bottom-notation">a</div>
 document.addEventListener('click', function (event) {
 	var boardNotation;
 	var possibleMoves;
+
 	// check if element selected contains either black or white
 	if (!event.target.classList.contains('black') && !event.target.classList.contains('white')) return;
+
+	if (event.target.classList.contains('black-moves') || event.target.classList.contains('white-moves')) {
+		clear_board();
+        originalSquare.innerHTML = '';
+		console.log("originalPieceLocation",originalPieceLocation);
+		event.target.innerHTML = originalPieceLocation;
+		return;
+	};
+
+    originalPieceLocation = event.target.innerHTML;
+    originalSquare = event.target;
+	console.log("originalPieceLocation",originalPieceLocation);
 
 	// clear the board of all previous highlight/select classes
 	clear_board();
