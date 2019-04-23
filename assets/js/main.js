@@ -23,6 +23,16 @@ var originalPieceLocation;
 var originalSquare;
 
 var chessboard = document.getElementById("chessboard");
+var side_container = document.getElementById("side-notation");
+
+side_container.insertAdjacentHTML('beforeend', `<div class="side-notation">8</div>
+    <div class="side-notation">7</div>
+    <div class="side-notation">6</div>
+    <div class="side-notation">5</div>
+    <div class="side-notation">4</div>
+    <div class="side-notation">3</div>
+    <div class="side-notation">2</div>
+    <div class="side-notation">1</div>`);
 
 // first row
 chessboard.insertAdjacentHTML('beforeend', `<div class="white">&#9820;</div>

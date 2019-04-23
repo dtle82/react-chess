@@ -21,7 +21,7 @@ h1 {
     text-align: center; }
 
 .black {
-  background-image: url("assets/wood-pattern.png");
+  background-image: url("../wood-pattern.png");
   float: left;
   width: 80px;
   height: 80px;
@@ -32,6 +32,7 @@ h1 {
   vertical-align: middle; }
 
 .white {
+  background-image: url("../wood-pattern.png");
   float: left;
   width: 80px;
   height: 80px;
@@ -41,7 +42,7 @@ h1 {
   display: table-cell;
   vertical-align: middle; }
 
-.side-container {
+#side-notation {
   float: left;
   margin: 20px 0px;
   width: 40px;
