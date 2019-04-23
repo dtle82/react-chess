@@ -221,6 +221,7 @@ function getPossibleMoves(boardIndex,boardPiece) {
 	return moveset;
 }
 
+/** This funtion removes calculate square moves that does not exist on a 8x8 chessboard at 0 index */
 function validateMoveset(moveset) {
     let validatedMoves = moveset.filter(move => move > 0 && move <= 63 );
     console.log("validatedMoves",validatedMoves);
