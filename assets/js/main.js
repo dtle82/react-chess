@@ -199,10 +199,18 @@ function getPossibleMoves(boardIndex,boardPiece) {
 		moveset.push(boardIndex-16);
 	}
 	if(boardPiece == 'black knight') {
+		moveset.push(boardIndex+6);
+		moveset.push(boardIndex+10);
 		moveset.push(boardIndex+15);
 		moveset.push(boardIndex+17);
+        moveset.push(boardIndex-6);
+        moveset.push(boardIndex-10);
+		moveset.push(boardIndex-15);
+		moveset.push(boardIndex-17);
 	}
 	if(boardPiece == 'white knight') {
+		moveset.push(boardIndex+15);
+		moveset.push(boardIndex+17);
 		moveset.push(boardIndex-15);
 		moveset.push(boardIndex-17);
 	}
