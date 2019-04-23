@@ -74,21 +74,23 @@ h1 {
 }
 .white-moves, .black-moves {
     box-sizing:border-box;
-    border: 1px solid white;
-    background-image: none;
+    /* border: 1px solid white; */
+    /* background-image: none; */
     font-size:21px;
 }
 .white-moves::after {
     content: "⚪";
     display:block;
     margin: 26px;
-    opacity: .5;
+    opacity: .75;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;;
 }
 .black-moves::after {
     content: "⚫";
     display:block;
     margin: 26px;
-    opacity: .5;
+    opacity: .75;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;;
 }
 
 .black-moves:hover, .white-moves:hover {
