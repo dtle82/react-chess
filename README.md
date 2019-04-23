@@ -1,4 +1,4 @@
-Chess in Javascript & CSS
+Chess in Javascript & SCSS
 =====================
 
 V 1.00
