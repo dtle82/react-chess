@@ -1,18 +1,29 @@
+$primary-width: 640px;
+
 * {
     font-family: 'Arial Unicode MS';
-}
-body {
-    width: 720px;
 }
 h1 {
     text-align:center;
 }
 #chessboard {
     float:left;
-    width: 640px;
+    width: $primary-width;
     height: 640px;
     margin: 20px;
 }
+#history {
+    float:left;
+    width: $primary-width;
+    height: 640px;
+    margin: 20px;
+    border:1px solid #ccc;
+
+    h2 {
+        text-align: center;
+    }
+}
+
 .black {
     background-image: url("assets/wood-pattern.png");
     float: left;
