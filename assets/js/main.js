@@ -158,13 +158,13 @@ document.addEventListener('click', function (event) {
 		}
 		if (event.target.innerHTML == "♞") {
 			console.log("it's a black knight!");
-			possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"black knight"));
+			possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"knight"));
 			console.log("possible moves",possibleMoves);
 			highlightPossibleMoves(possibleMoves, "black");
 		}
 		if (event.target.innerHTML == "♘") {
 			console.log("it's a white knight!");
-			possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"white knight"));
+			possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"knight"));
 			console.log("possible moves",possibleMoves);
 			highlightPossibleMoves(possibleMoves, "white");
 		}
@@ -198,18 +198,8 @@ function getPossibleMoves(boardIndex,boardPiece) {
 		moveset.push(boardIndex-8);
 		moveset.push(boardIndex-16);
 	}
-	if(boardPiece == 'black knight') {
+	if(boardPiece == 'knight') {
 		moveset.push(boardIndex+6);
-		moveset.push(boardIndex+10);
-		moveset.push(boardIndex+15);
-		moveset.push(boardIndex+17);
-        moveset.push(boardIndex-6);
-        moveset.push(boardIndex-10);
-		moveset.push(boardIndex-15);
-		moveset.push(boardIndex-17);
-	}
-	if(boardPiece == 'white knight') {
-        moveset.push(boardIndex+6);
 		moveset.push(boardIndex+10);
 		moveset.push(boardIndex+15);
 		moveset.push(boardIndex+17);
@@ -228,15 +218,14 @@ function getPossibleMoves(boardIndex,boardPiece) {
 function validateMoveset(moveset) {
     let validatedMoves = moveset.filter(
         move => {
-        console.log("move",move);
-        console.log("modulis",move % 8);
-        console.log("boardNotation",boardNotation);
-        console.log("boardNotation modulis",boardNotation % 8);
+        // console.log("move",move);
+        // console.log("modulis",move % 8);
+        // console.log("boardNotation",boardNotation);
+        // console.log("boardNotation modulis",boardNotation % 8);
         let file_difference = (boardNotation % 8)-(move % 8);
-        console.log("file difference",file_difference);
+        // console.log("file difference",file_difference);
         return move > 0 && move <= 63 && Math.abs(file_difference) <= 2;
     });
-    console.log("validatedMoves",validatedMoves);
     return validatedMoves;
 }
 /** There's a check to make sure the square is not already occupied by another piece */
