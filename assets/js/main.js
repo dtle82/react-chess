@@ -21,6 +21,8 @@ console.log("blackPawn",blackKnight.getName());
 
 var originalPieceLocation;
 var originalSquare;
+var boardNotation;
+var possibleMoves;
 
 var chessboard = document.getElementById("chessboard");
 var side_container = document.getElementById("side-notation");
@@ -117,8 +119,6 @@ chessboard.insertAdjacentHTML('beforeend', `<div class="bottom-notation">a</div>
     <div class="bottom-notation">h</div>`);
 
 document.addEventListener('click', function (event) {
-	var boardNotation;
-	var possibleMoves;
 
 	// check if element selected contains either black or white
 	if (!event.target.classList.contains('black') && !event.target.classList.contains('white')) return;
@@ -221,9 +221,21 @@ function getPossibleMoves(boardIndex,boardPiece) {
 	return moveset;
 }
 
-/** This funtion removes calculate square moves that does not exist on a 8x8 chessboard at 0 index */
+/**
+    This funtion removes calculate square moves that does not exist on a 8x8 chessboard at 0 index.
+    Also remove moves that span across the edge of the game board
+ */
 function validateMoveset(moveset) {
-    let validatedMoves = moveset.filter(move => move > 0 && move <= 63 );
+    let validatedMoves = moveset.filter(
+        move => {
+        console.log("move",move);
+        console.log("modulis",move % 8);
+        console.log("boardNotation",boardNotation);
+        console.log("boardNotation modulis",boardNotation % 8);
+        let file_difference = (boardNotation % 8)-(move % 8);
+        console.log("file difference",file_difference);
+        return move > 0 && move <= 63 && Math.abs(file_difference) <= 2;
+    });
     console.log("validatedMoves",validatedMoves);
     return validatedMoves;
 }
