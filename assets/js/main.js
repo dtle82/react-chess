@@ -9,15 +9,14 @@ class Piece {
     getName() {
         return "This is a " + this.name;
     }
+    getMoveSet() {
+        return this.moveset;
+    }
 }
 
 let blackPawn = new Piece("black pawn",[8,16],"yes","♟");
 let whitePawn = new Piece("white pawn",[-8,-16],"yes","♙");
-let blackKnight = new Piece("black knight",[15,17],"yes","♞");
-let whiteKnight = new Piece("white knight",[-15,-17],"yes","♘");
-
-console.log("blackPawn",blackPawn.getName());
-console.log("blackPawn",blackKnight.getName());
+let knight = new Piece("knight",[6,10,15,17,-6,-10,-15,-17],"yes",["♞","♘"]);
 
 var originalPieceLocation;
 var originalSquare;
@@ -191,22 +190,19 @@ function getBoardNotation(paramTarget) {
 function getPossibleMoves(boardIndex,boardPiece) {
 	var moveset = [];
 	if(boardPiece == 'black pawn') {
-		moveset.push(boardIndex+8);
-		moveset.push(boardIndex+16);
+        blackPawn.getMoveSet().map(function(move) {
+            moveset.push(boardIndex+move);
+        });
 	}
 	if(boardPiece == 'white pawn') {
-		moveset.push(boardIndex-8);
-		moveset.push(boardIndex-16);
+        whitePawn.getMoveSet().map(function(move) {
+            moveset.push(boardIndex+move);
+        });
 	}
 	if(boardPiece == 'knight') {
-		moveset.push(boardIndex+6);
-		moveset.push(boardIndex+10);
-		moveset.push(boardIndex+15);
-		moveset.push(boardIndex+17);
-        moveset.push(boardIndex-6);
-        moveset.push(boardIndex-10);
-		moveset.push(boardIndex-15);
-		moveset.push(boardIndex-17);
+        knight.getMoveSet().map(function(move) {
+            moveset.push(boardIndex+move);
+        });
 	}
 	return moveset;
 }
@@ -218,16 +214,12 @@ function getPossibleMoves(boardIndex,boardPiece) {
 function validateMoveset(moveset) {
     let validatedMoves = moveset.filter(
         move => {
-        // console.log("move",move);
-        // console.log("modulis",move % 8);
-        // console.log("boardNotation",boardNotation);
-        // console.log("boardNotation modulis",boardNotation % 8);
         let file_difference = (boardNotation % 8)-(move % 8);
-        // console.log("file difference",file_difference);
         return move > 0 && move <= 63 && Math.abs(file_difference) <= 2;
     });
     return validatedMoves;
 }
+
 /** There's a check to make sure the square is not already occupied by another piece */
 function highlightPossibleMoves(movelist,color) {
 	movelist.map(function(value){
