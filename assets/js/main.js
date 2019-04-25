@@ -4,6 +4,7 @@ class Piece {
         this.moveset = moveset;
         this.initial = initial;
         this.emoji = emoji;
+        globalPieceArray.push(this); // a global array to keep track of all piece class that have been instantiated
     }
 
     getName() {
@@ -12,16 +13,21 @@ class Piece {
     getMoveSet() {
         return this.moveset;
     }
+    getEmoji() {
+        return this.emoji;
+    }
 }
-
-let blackPawn = new Piece("black pawn",[8,16],"yes","♟");
-let whitePawn = new Piece("white pawn",[-8,-16],"yes","♙");
-let knight = new Piece("knight",[6,10,15,17,-6,-10,-15,-17],"yes",["♞","♘"]);
 
 var originalPieceLocation;
 var originalSquare;
 var boardNotation;
 var possibleMoves;
+var globalPieceArray = [];
+
+let blackPawn = new Piece("black pawn",[8,16],"yes","♟");
+let whitePawn = new Piece("white pawn",[-8,-16],"yes","♙");
+let knight = new Piece("knight",[6,10,15,17,-6,-10,-15,-17],"yes",["♞","♘"]);
+let bishop = new Piece("bishop",[7,14,21,28,35,42,49,56,9,18,27,36,45,56,63,78,-7,-14,-21,-28,-35,-42,-49,-56,-9,-18,-27,-36,-45,-56,-78],"yes",["♝","♗"]);
 
 var chessboard = document.getElementById("chessboard");
 var side_container = document.getElementById("side-notation");
@@ -157,13 +163,25 @@ document.addEventListener('click', function (event) {
 		}
 		if (event.target.innerHTML == "♞") {
 			console.log("it's a black knight!");
-			possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"knight"));
+			possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"knight"),"knight");
 			console.log("possible moves",possibleMoves);
 			highlightPossibleMoves(possibleMoves, "black");
 		}
 		if (event.target.innerHTML == "♘") {
 			console.log("it's a white knight!");
-			possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"knight"));
+			possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"knight"),"knight");
+			console.log("possible moves",possibleMoves);
+			highlightPossibleMoves(possibleMoves, "white");
+		}
+        if (event.target.innerHTML == "♝") {
+			console.log("it's a black bishop!");
+			possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"bishop"),"bishop");
+			console.log("possible moves",possibleMoves);
+			highlightPossibleMoves(possibleMoves, "black");
+		}
+        if (event.target.innerHTML == "♗") {
+			console.log("it's a white bishop!");
+			possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"bishop"),"bishop");
 			console.log("possible moves",possibleMoves);
 			highlightPossibleMoves(possibleMoves, "white");
 		}
@@ -204,19 +222,32 @@ function getPossibleMoves(boardIndex,boardPiece) {
             moveset.push(boardIndex+move);
         });
 	}
+	if(boardPiece == 'bishop') {
+        bishop.getMoveSet().map(function(move) {
+            moveset.push(boardIndex+move);
+        });
+	}
 	return moveset;
 }
 
 /**
-    This funtion removes calculate square moves that does not exist on a 8x8 chessboard at 0 index.
+    This function removes calculate square moves that does not exist on a 8x8 chessboard at 0 index.
     Also remove moves that span across the edge of the game board
  */
-function validateMoveset(moveset) {
-    let validatedMoves = moveset.filter(
-        move => {
-        let file_difference = (boardNotation % 8)-(move % 8);
-        return move > 0 && move <= 63 && Math.abs(file_difference) <= 2;
-    });
+function validateMoveset(moveset,piece) {
+    if(piece == 'knight') {
+        var validatedMoves = moveset.filter(
+            move => {
+            let file_difference = (boardNotation % 8)-(move % 8);
+            return move > 0 && move <= 63 && Math.abs(file_difference) <= 2;
+        });
+    }
+    if(piece == 'bishop') {
+        var validatedMoves = moveset.filter(
+            move => {
+            return move > 0 && move <= 63;
+        });
+    }
     return validatedMoves;
 }
 
