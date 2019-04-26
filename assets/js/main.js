@@ -43,14 +43,12 @@ let bishop = new Piece("bishop",{ downLeft: [7,14,21,28,35,42,49,56],
 var chessboard = document.getElementById("chessboard");
 var side_container = document.getElementById("side-notation");
 
-side_container.insertAdjacentHTML('beforeend', `<div class="side-notation">8</div>
-    <div class="side-notation">7</div>
-    <div class="side-notation">6</div>
-    <div class="side-notation">5</div>
-    <div class="side-notation">4</div>
-    <div class="side-notation">3</div>
-    <div class="side-notation">2</div>
-    <div class="side-notation">1</div>`);
+function build_notation() {
+    for(var i = 8;i>=1;i--) {
+        side_container.insertAdjacentHTML('beforeend', `<div class="side-notation">${i}</div>`);
+    }
+}
+build_notation();
 
 // first row
 chessboard.insertAdjacentHTML('beforeend', `<div class="white">&#9820;</div>
