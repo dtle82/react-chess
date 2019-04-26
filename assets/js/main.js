@@ -278,8 +278,19 @@ function validateMoveset(moveset,piece) {
             return move > 0 && move <= 63;
         });
     }
-    if(piece.includes('pawn')) {
-        validatedMoves = moveset;
+    if(piece == 'black pawn') {
+        console.log("boardNotation",boardNotation);
+        var validatedMoves = moveset.sort();
+        if (boardNotation >= 16 && boardNotation <=47) {
+            validatedMoves.pop();
+        }
+    }
+    if(piece == 'white pawn') {
+        console.log("boardNotation",boardNotation);
+        var validatedMoves = moveset.reverse();
+        if (boardNotation >= 16 && boardNotation <=47) {
+            validatedMoves.shift();
+        }
     }
     return validatedMoves;
 }
