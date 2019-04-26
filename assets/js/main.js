@@ -50,87 +50,82 @@ function build_notation() {
 }
 build_notation();
 
-// first row
-chessboard.insertAdjacentHTML('beforeend', `<div class="white">&#9820;</div>
-<div class="black">&#9822;</div>
-<div class="white">&#9821;</div>
-<div class="black">&#9819;</div>
-<div class="white">&#9818;</div>
-<div class="black">&#9821;</div>
-<div class="white">&#9822;</div>
-<div class="black">&#9820;</div>`);
+function build_black_positions() {
+    // first row
+    var starting_black_pieces = ["&#9820;","&#9822;","&#9821;","&#9819;","&#9818;","&#9821;","&#9822;","&#9820;"];
+    starting_black_pieces.map(function(piece,idx){
+        if(idx % 2) { // alternate between black and white pieces
+            chessboard.insertAdjacentHTML('beforeend', `<div class="black">${piece}</div>`);
+        } else {
+            chessboard.insertAdjacentHTML('beforeend', `<div class="white">${piece}</div>`);
+        }
+    });
 
-chessboard.insertAdjacentHTML('beforeend', `<div class="black">&#9823;</div>
-<div class="white">&#9823;</div>
-<div class="black">&#9823;</div>
-<div class="white">&#9823;</div>
-<div class="black">&#9823;</div>
-<div class="white">&#9823;</div>
-<div class="black">&#9823;</div>
-<div class="white">&#9823;</div>`);
+    // second row
+    for(var i = 8;i>=1;i--) {
+        if(i % 2) {
+            chessboard.insertAdjacentHTML('beforeend', `<div class="white">&#9823;</div>`);
+        } else {
+            chessboard.insertAdjacentHTML('beforeend', `<div class="black">&#9823;</div>`);
+        }
+    }
+}
 
-chessboard.insertAdjacentHTML('beforeend', `<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>`);
+build_black_positions();
 
-chessboard.insertAdjacentHTML('beforeend', `<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>`);
+function build_neutral_squares() {
+    for(var i = 0;i<4;i++) {
+        if(i % 2) {
+            for(var j = 0;j<8;j++) {
+                if(j % 2) {
+                    chessboard.insertAdjacentHTML('beforeend', `<div class="white"></div>`);
+                } else {
+                    chessboard.insertAdjacentHTML('beforeend', `<div class="black"></div>`);
+                }
+            }
+        } else {
+            for(var j = 0;j<8;j++) {
+                if(j % 2) {
+                    chessboard.insertAdjacentHTML('beforeend', `<div class="black"></div>`);
+                } else {
+                    chessboard.insertAdjacentHTML('beforeend', `<div class="white"></div>`);
+                }
+            }
+        }
+    }
+}
 
-chessboard.insertAdjacentHTML('beforeend', `<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>`);
+build_neutral_squares();
 
-chessboard.insertAdjacentHTML('beforeend', `<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>`);
+function build_white_positions() {
+    // second row
+    for(var i = 8;i>=1;i--) {
+        if(i % 2) {
+            chessboard.insertAdjacentHTML('beforeend', `<div class="black">&#9817;</div>`);
+        } else {
+            chessboard.insertAdjacentHTML('beforeend', `<div class="white">&#9817;</div>`);
+        }
+    }
+    // first row
+    var starting_black_pieces = ["&#9814;","&#9816;","&#9815;","&#9813;","&#9812;","&#9815;","&#9816;","&#9814;"];
+    starting_black_pieces.map(function(piece,idx){
+        if(idx % 2) { // alternate between black and white pieces
+            chessboard.insertAdjacentHTML('beforeend', `<div class="white">${piece}</div>`);
+        } else {
+            chessboard.insertAdjacentHTML('beforeend', `<div class="black">${piece}</div>`);
+        }
+    });
+}
 
-chessboard.insertAdjacentHTML('beforeend', `<div class="white">&#9817;</div>
-<div class="black">&#9817;</div>
-<div class="white">&#9817;</div>
-<div class="black">&#9817;</div>
-<div class="white">&#9817;</div>
-<div class="black">&#9817;</div>
-<div class="white">&#9817;</div>
-<div class="black">&#9817;</div>`);
+build_white_positions();
 
-chessboard.insertAdjacentHTML('beforeend', `<div class="black">&#9814;</div>
-<div class="white">&#9816;</div>
-<div class="black">&#9815;</div>
-<div class="white">&#9813;</div>
-<div class="black">&#9812;</div>
-<div class="white">&#9815;</div>
-<div class="black">&#9816;</div>
-<div class="white">&#9814;</div>`);
-
-chessboard.insertAdjacentHTML('beforeend', `<div class="bottom-notation">a</div>
-    <div class="bottom-notation">b</div>
-    <div class="bottom-notation">c</div>
-    <div class="bottom-notation">d</div>
-    <div class="bottom-notation">e</div>
-    <div class="bottom-notation">f</div>
-    <div class="bottom-notation">g</div>
-    <div class="bottom-notation">h</div>`);
+function build_notation_bottom() {
+    var notation_array = ["a","b","c","d","e","f","g","h"];
+    notation_array.map(function(notation){
+        chessboard.insertAdjacentHTML('beforeend', `<div class="bottom-notation">${notation}</div>`);
+    });
+}
+build_notation_bottom();
 
 document.addEventListener('click', function (event) {
 
