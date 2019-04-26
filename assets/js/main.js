@@ -24,6 +24,39 @@ class Piece{
     }
 }
 
+class Bishop extends Piece {
+    constructor(name, moveset,position,emoji) {
+        super(name, moveset,position,emoji);
+        globalPieceArray.push(this); // a global array to keep track of all piece class that have been instantiated
+    }
+    getPossibleMoves(boardIndex,boardPiece) {
+        var possible_moveset = [];
+        console.log("super.getMoveSet().downLeft",super.getMoveSet().downLeft);
+        super.getMoveSet().downLeft.map(function(move) {
+            console.log("move",move);
+            if (((boardIndex+move) % 8) <= (boardIndex % 8)) {
+                possible_moveset.push(boardIndex+move);
+            }
+        });
+        super.getMoveSet().downRight.map(function(move) {
+            if (((boardIndex+move) % 8) >= (boardIndex % 8)) {
+                possible_moveset.push(boardIndex+move);
+            }
+        });
+        super.getMoveSet().upLeft.map(function(move) {
+            if (((boardIndex+move) % 8) >= (boardIndex % 8)) {
+                possible_moveset.push(boardIndex+move);
+            }
+        });
+        super.getMoveSet().upRight.map(function(move) {
+            if (((boardIndex+move) % 8) <= (boardIndex % 8)) {
+                possible_moveset.push(boardIndex+move);
+            }
+        });
+        return possible_moveset;
+    }
+}
+
 var originalPieceLocation;
 var originalSquare;
 var boardNotation;
@@ -36,7 +69,7 @@ var side_container = document.getElementById("side-notation");
 let blackPawn = new Piece("black pawn",[8,16],"yes","♟");
 let whitePawn = new Piece("white pawn",[-8,-16],"yes","♙");
 let knight = new Piece("knight",[6,10,15,17,-6,-10,-15,-17],"yes",["♞","♘"]);
-let bishop = new Piece("bishop",{ downLeft: [7,14,21,28,35,42,49,56],
+let bishop = new Bishop("bishop",{ downLeft: [7,14,21,28,35,42,49,56],
     downRight: [9,18,27,36,45,56,63],
     upLeft: [-7,-14,-21,-28,-35,-42,-49,-56],
     upRight: [-9,-18,-27,-36,-45,-56]},"yes",["♝","♗"]);
@@ -247,13 +280,7 @@ function validateMoveset(moveset,piece) {
             return move > 0 && move <= 63 && Math.abs(file_difference) <= 2;
         });
     }
-    if(piece == 'white bishop') {
-        var validatedMoves = moveset.filter(
-            move => {
-            return move > 0 && move <= 63;
-        });
-    }
-    if(piece == 'black bishop') {
+    if(piece == 'bishop') {
         var validatedMoves = moveset.filter(
             move => {
             return move > 0 && move <= 63;
