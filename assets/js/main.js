@@ -1,20 +1,28 @@
-class Piece {
-    constructor(name, moveset,initial,emoji) {
+class Piece{
+    constructor(name, moveset,position,emoji) {
         this.name = name;
         this.moveset = moveset;
-        this.initial = initial;
+        this.position = position;
         this.emoji = emoji;
         globalPieceArray.push(this); // a global array to keep track of all piece class that have been instantiated
     }
 
     getName() {
-        return "This is a " + this.name;
+        return this.name;
     }
     getMoveSet() {
         return this.moveset;
     }
     getEmoji() {
         return this.emoji;
+    }
+    getPossibleMoves(boardIndex,boardPiece) {
+        var possible_moveset = [];
+        this.getMoveSet().map(function(move) {
+            possible_moveset.push(boardIndex+move);
+        });
+
+        return possible_moveset;
     }
 }
 
@@ -27,7 +35,10 @@ var globalPieceArray = [];
 let blackPawn = new Piece("black pawn",[8,16],"yes","♟");
 let whitePawn = new Piece("white pawn",[-8,-16],"yes","♙");
 let knight = new Piece("knight",[6,10,15,17,-6,-10,-15,-17],"yes",["♞","♘"]);
-let bishop = new Piece("bishop",[7,14,21,28,35,42,49,56,9,18,27,36,45,56,63,78,-7,-14,-21,-28,-35,-42,-49,-56,-9,-18,-27,-36,-45,-56,-78],"yes",["♝","♗"]);
+let bishop = new Piece("bishop",{ downLeft: [7,14,21,28,35,42,49,56],
+    downRight: [9,18,27,36,45,56,63,78],
+    upLeft: [-7,-14,-21,-28,-35,-42,-49,-56],
+    upRight: [-9,-18,-27,-36,-45,-56,-78]},"yes",["♝","♗"]);
 
 var chessboard = document.getElementById("chessboard");
 var side_container = document.getElementById("side-notation");
@@ -149,42 +160,44 @@ document.addEventListener('click', function (event) {
 
 	if(event.target.innerHTML.length) {
 		event.target.classList.add("selected");
-		if (event.target.innerHTML == "♟") {
-			console.log("it's a black pawn!");
-			possibleMoves = getPossibleMoves(boardNotation,"black pawn");
-			console.log("possible moves",possibleMoves);
-			highlightPossibleMoves(possibleMoves, "black");
-		}
-		if (event.target.innerHTML == "♙") {
-			console.log("it's a white pawn!");
-			possibleMoves = getPossibleMoves(boardNotation,"white pawn");
-			console.log("possible moves",possibleMoves);
-			highlightPossibleMoves(possibleMoves, "white");
-		}
-		if (event.target.innerHTML == "♞") {
-			console.log("it's a black knight!");
-			possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"knight"),"knight");
-			console.log("possible moves",possibleMoves);
-			highlightPossibleMoves(possibleMoves, "black");
-		}
-		if (event.target.innerHTML == "♘") {
-			console.log("it's a white knight!");
-			possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"knight"),"knight");
-			console.log("possible moves",possibleMoves);
-			highlightPossibleMoves(possibleMoves, "white");
-		}
-        if (event.target.innerHTML == "♝") {
-			console.log("it's a black bishop!");
-			possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"bishop"),"bishop");
-			console.log("possible moves",possibleMoves);
-			highlightPossibleMoves(possibleMoves, "black");
-		}
-        if (event.target.innerHTML == "♗") {
-			console.log("it's a white bishop!");
-			possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"bishop"),"bishop");
-			console.log("possible moves",possibleMoves);
-			highlightPossibleMoves(possibleMoves, "white");
-		}
+        globalPieceArray.map(function(piece){
+            if (event.target.innerHTML == piece.getEmoji() || piece.getEmoji().includes(event.target.innerHTML)) {
+                console.log("it's a " + piece.getName(),piece);
+                possibleMoves = validateMoveset(piece.getPossibleMoves(boardNotation,piece.getName()),piece.getName());
+                console.log("possible moves",possibleMoves);
+                highlightPossibleMoves(possibleMoves, "black");
+            };
+        });
+		// if (event.target.innerHTML == "♙") {
+		// 	console.log("it's a white pawn!");
+		// 	possibleMoves = getPossibleMoves(boardNotation,"white pawn");
+		// 	console.log("possible moves",possibleMoves);
+		// 	highlightPossibleMoves(possibleMoves, "white");
+		// }
+		// if (event.target.innerHTML == "♞") {
+		// 	console.log("it's a black knight!");
+		// 	possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"knight"),"knight");
+		// 	console.log("possible moves",possibleMoves);
+		// 	highlightPossibleMoves(possibleMoves, "black");
+		// }
+		// if (event.target.innerHTML == "♘") {
+		// 	console.log("it's a white knight!");
+		// 	possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"knight"),"knight");
+		// 	console.log("possible moves",possibleMoves);
+		// 	highlightPossibleMoves(possibleMoves, "white");
+		// }
+        // if (event.target.innerHTML == "♝") {
+		// 	console.log("it's a black bishop!");
+		// 	possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"bishop"),"black bishop");
+		// 	console.log("possible moves",possibleMoves);
+		// 	highlightPossibleMoves(possibleMoves, "black bishop");
+		// }
+        // if (event.target.innerHTML == "♗") {
+		// 	console.log("it's a white bishop!");
+		// 	possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"bishop"),"white bishop");
+		// 	console.log("possible moves",possibleMoves);
+		// 	highlightPossibleMoves(possibleMoves, "white bishop");
+		// }
 	}
 
 }, false);
@@ -222,9 +235,27 @@ function getPossibleMoves(boardIndex,boardPiece) {
             moveset.push(boardIndex+move);
         });
 	}
+    // restrict diagonals to end at the edge of the chess board
 	if(boardPiece == 'bishop') {
-        bishop.getMoveSet().map(function(move) {
-            moveset.push(boardIndex+move);
+        bishop.getMoveSet().downLeft.map(function(move) {
+            if (((boardIndex+move) % 8) <= (boardIndex % 8)) {
+                moveset.push(boardIndex+move);
+            }
+        });
+        bishop.getMoveSet().downRight.map(function(move) {
+            if (((boardIndex+move) % 8) >= (boardIndex % 8)) {
+                moveset.push(boardIndex+move);
+            }
+        });
+        bishop.getMoveSet().upLeft.map(function(move) {
+            if (((boardIndex+move) % 8) >= (boardIndex % 8)) {
+                moveset.push(boardIndex+move);
+            }
+        });
+        bishop.getMoveSet().upRight.map(function(move) {
+            if (((boardIndex+move) % 8) <= (boardIndex % 8)) {
+                moveset.push(boardIndex+move);
+            }
         });
 	}
 	return moveset;
@@ -242,17 +273,27 @@ function validateMoveset(moveset,piece) {
             return move > 0 && move <= 63 && Math.abs(file_difference) <= 2;
         });
     }
-    if(piece == 'bishop') {
+    if(piece == 'white bishop') {
         var validatedMoves = moveset.filter(
             move => {
             return move > 0 && move <= 63;
         });
+    }
+    if(piece == 'black bishop') {
+        var validatedMoves = moveset.filter(
+            move => {
+            return move > 0 && move <= 63;
+        });
+    }
+    if(piece.includes('pawn')) {
+        validatedMoves = moveset;
     }
     return validatedMoves;
 }
 
 /** There's a check to make sure the square is not already occupied by another piece */
 function highlightPossibleMoves(movelist,color) {
+    var blocked = false;
 	movelist.map(function(value){
 		if (color == "black") {
             if (document.querySelectorAll('#chessboard')[0].children[value].innerHTML.length == 0) {
@@ -262,6 +303,16 @@ function highlightPossibleMoves(movelist,color) {
 		if (color == "white") {
             if (document.querySelectorAll('#chessboard')[0].children[value].innerHTML.length == 0) {
                 document.querySelectorAll('#chessboard')[0].children[value].classList.add("white-moves");
+            }
+		}
+		if (color == "white bishop") {
+            if (document.querySelectorAll('#chessboard')[0].children[value].innerHTML.length == 0 && !blocked) {
+                document.querySelectorAll('#chessboard')[0].children[value].classList.add("white-moves");
+            }
+		}
+		if (color == "black bishop") {
+            if (document.querySelectorAll('#chessboard')[0].children[value].innerHTML.length == 0 && !blocked) {
+                document.querySelectorAll('#chessboard')[0].children[value].classList.add("black-moves");
             }
 		}
 	});

@@ -69,10 +69,6 @@ h1 {
   vertical-align: middle;
   font-size: 24px; }
 
-.highlight {
-  /* border: 1px solid red; */
-  /* box-sizing:border-box; */ }
-
 .selected {
   /* border: 2px solid blue; */
   box-sizing: border-box;
