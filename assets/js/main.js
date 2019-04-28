@@ -33,7 +33,6 @@ class Bishop extends Piece {
         var possible_moveset = [];
         console.log("super.getMoveSet().downLeft",super.getMoveSet().downLeft);
         super.getMoveSet().downLeft.map(function(move) {
-            console.log("move",move);
             if (((boardIndex+move) % 8) <= (boardIndex % 8)) {
                 possible_moveset.push(boardIndex+move);
             }
