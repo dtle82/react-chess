@@ -72,6 +72,7 @@ let bishop = new Bishop("bishop",{ downLeft: [7,14,21,28,35,42,49,56],
     downRight: [9,18,27,36,45,56,63],
     upLeft: [-7,-14,-21,-28,-35,-42,-49,-56],
     upRight: [-9,-18,-27,-36,-45,-56]},"yes",["♝","♗"]);
+let rook = new Piece("rook",[8,16,24,32,40,48,56,64,-8,-16,-24,-32,-40,-48,-56,-64,1,2,3,4,5,6,7,-1,-2,-3,-4,-5,-6,-7],"yes",["♜","♖"]);
 
 function build_notation() {
     for(var i = 8;i>=1;i--) {
@@ -241,6 +242,11 @@ function getPossibleMoves(boardIndex,boardPiece) {
             moveset.push(boardIndex+move);
         });
 	}
+	if(boardPiece == 'rook') {
+        rook.getMoveSet().map(function(move) {
+            moveset.push(boardIndex+move);
+        });
+	}
     // restrict diagonals to end at the edge of the chess board
 	if(boardPiece == 'bishop') {
         bishop.getMoveSet().downLeft.map(function(move) {
@@ -280,6 +286,12 @@ function validateMoveset(moveset,piece) {
         });
     }
     if(piece == 'bishop') {
+        var validatedMoves = moveset.filter(
+            move => {
+            return move > 0 && move <= 63;
+        });
+    }
+    if(piece == 'rook') {
         var validatedMoves = moveset.filter(
             move => {
             return move > 0 && move <= 63;
