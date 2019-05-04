@@ -56,6 +56,37 @@ class Bishop extends Piece {
     }
 }
 
+class Rook extends Piece {
+    constructor(name, moveset,position,emoji) {
+        super(name, moveset,position,emoji);
+        globalPieceArray.push(this); // a global array to keep track of all piece class that have been instantiated
+    }
+    getPossibleMoves(boardIndex,boardPiece) {
+        var possible_moveset = [];
+        super.getMoveSet().right.map(function(move) {
+            var new_move = boardIndex+move;
+            if (Math.floor((new_move / 8)) == Math.floor((boardIndex / 8))) {
+                possible_moveset.push(boardIndex+move);
+            }
+        });
+        super.getMoveSet().left.map(function(move) {
+            var new_move = boardIndex+move;
+            if (Math.floor((new_move / 8)) == Math.floor((boardIndex / 8))) {
+                possible_moveset.push(boardIndex+move);
+            }
+        });
+        super.getMoveSet().down.map(function(move) {
+            var new_move = boardIndex+move;
+            possible_moveset.push(boardIndex+move);
+        });
+        super.getMoveSet().up.map(function(move) {
+            var new_move = boardIndex+move;
+            possible_moveset.push(boardIndex+move);
+        });
+        return possible_moveset;
+    }
+}
+
 var originalPieceLocation;
 var originalSquare;
 var boardNotation;
@@ -72,7 +103,10 @@ let bishop = new Bishop("bishop",{ downLeft: [7,14,21,28,35,42,49,56],
     downRight: [9,18,27,36,45,56,63],
     upLeft: [-7,-14,-21,-28,-35,-42,-49,-56],
     upRight: [-9,-18,-27,-36,-45,-56]},"yes",["♝","♗"]);
-let rook = new Piece("rook",[8,16,24,32,40,48,56,64,-8,-16,-24,-32,-40,-48,-56,-64,1,2,3,4,5,6,7,-1,-2,-3,-4,-5,-6,-7],"yes",["♜","♖"]);
+let rook = new Rook("rook",{ left: [0,-1,-2,-3,-4,-5,-6,-7],
+    right:[0,1,2,3,4,5,6,7],
+    up:[-8,-16,-24,-32,-40,-48,-56,-64],
+    down:[8,16,24,32,40,48,56,64]},"yes",["♜","♖"]);
 
 function build_notation() {
     for(var i = 8;i>=1;i--) {
@@ -192,19 +226,6 @@ document.addEventListener('click', function (event) {
                 highlightPossibleMoves(possibleMoves, "black");
             };
         });
-
-        // if (event.target.innerHTML == "♝") {
-		// 	console.log("it's a black bishop!");
-		// 	possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"bishop"),"black bishop");
-		// 	console.log("possible moves",possibleMoves);
-		// 	highlightPossibleMoves(possibleMoves, "black bishop");
-		// }
-        // if (event.target.innerHTML == "♗") {
-		// 	console.log("it's a white bishop!");
-		// 	possibleMoves = validateMoveset(getPossibleMoves(boardNotation,"bishop"),"white bishop");
-		// 	console.log("possible moves",possibleMoves);
-		// 	highlightPossibleMoves(possibleMoves, "white bishop");
-		// }
 	}
 
 }, false);
@@ -282,19 +303,19 @@ function validateMoveset(moveset,piece) {
         var validatedMoves = moveset.filter(
             move => {
             let file_difference = (boardNotation % 8)-(move % 8);
-            return move > 0 && move <= 63 && Math.abs(file_difference) <= 2;
+            return move >= 0 && move <= 63 && Math.abs(file_difference) <= 2;
         });
     }
     if(piece == 'bishop') {
         var validatedMoves = moveset.filter(
             move => {
-            return move > 0 && move <= 63;
+            return move >= 0 && move <= 63;
         });
     }
     if(piece == 'rook') {
         var validatedMoves = moveset.filter(
             move => {
-            return move > 0 && move <= 63;
+            return move >= 0 && move <= 63;
         });
     }
     if(piece == 'black pawn') {
