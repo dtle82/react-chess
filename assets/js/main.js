@@ -31,7 +31,6 @@ class Bishop extends Piece {
     }
     getPossibleMoves(boardIndex,boardPiece) {
         var possible_moveset = [];
-        console.log("super.getMoveSet().downLeft",super.getMoveSet().downLeft);
         super.getMoveSet().downLeft.map(function(move) {
             if (((boardIndex+move) % 8) <= (boardIndex % 8)) {
                 possible_moveset.push(boardIndex+move);
@@ -87,6 +86,57 @@ class Rook extends Piece {
     }
 }
 
+class Queen extends Piece {
+    constructor(name, moveset,position,emoji) {
+        super(name, moveset,position,emoji);
+        globalPieceArray.push(this); // a global array to keep track of all piece class that have been instantiated
+    }
+    getPossibleMoves(boardIndex,boardPiece) {
+        var possible_moveset = [];
+        super.getMoveSet().right.map(function(move) {
+            var new_move = boardIndex+move;
+            if (Math.floor((new_move / 8)) == Math.floor((boardIndex / 8))) {
+                possible_moveset.push(boardIndex+move);
+            }
+        });
+        super.getMoveSet().left.map(function(move) {
+            var new_move = boardIndex+move;
+            if (Math.floor((new_move / 8)) == Math.floor((boardIndex / 8))) {
+                possible_moveset.push(boardIndex+move);
+            }
+        });
+        super.getMoveSet().down.map(function(move) {
+            var new_move = boardIndex+move;
+            possible_moveset.push(boardIndex+move);
+        });
+        super.getMoveSet().up.map(function(move) {
+            var new_move = boardIndex+move;
+            possible_moveset.push(boardIndex+move);
+        });
+        super.getMoveSet().downLeft.map(function(move) {
+            if (((boardIndex+move) % 8) <= (boardIndex % 8)) {
+                possible_moveset.push(boardIndex+move);
+            }
+        });
+        super.getMoveSet().downRight.map(function(move) {
+            if (((boardIndex+move) % 8) >= (boardIndex % 8)) {
+                possible_moveset.push(boardIndex+move);
+            }
+        });
+        super.getMoveSet().upLeft.map(function(move) {
+            if (((boardIndex+move) % 8) >= (boardIndex % 8)) {
+                possible_moveset.push(boardIndex+move);
+            }
+        });
+        super.getMoveSet().upRight.map(function(move) {
+            if (((boardIndex+move) % 8) <= (boardIndex % 8)) {
+                possible_moveset.push(boardIndex+move);
+            }
+        });
+        return possible_moveset;
+    }
+}
+
 var originalPieceLocation;
 var originalSquare;
 var boardNotation;
@@ -107,6 +157,14 @@ let rook = new Rook("rook",{ left: [0,-1,-2,-3,-4,-5,-6,-7],
     right:[0,1,2,3,4,5,6,7],
     up:[-8,-16,-24,-32,-40,-48,-56,-64],
     down:[8,16,24,32,40,48,56,64]},"yes",["♜","♖"]);
+let queen = new Queen("queen",{ left: [0,-1,-2,-3,-4,-5,-6,-7],
+    right:[0,1,2,3,4,5,6,7],
+    up:[-8,-16,-24,-32,-40,-48,-56,-64],
+    down:[8,16,24,32,40,48,56,64],
+    downLeft: [7,14,21,28,35,42,49,56],
+    downRight: [9,18,27,36,45,56,63],
+    upLeft: [-7,-14,-21,-28,-35,-42,-49,-56],
+    upRight: [-9,-18,-27,-36,-45,-56]},"yes",["♛","♕"]);
 
 function build_notation() {
     for(var i = 8;i>=1;i--) {
@@ -318,6 +376,12 @@ function validateMoveset(moveset,piece) {
             return move >= 0 && move <= 63;
         });
     }
+    if(piece == 'queen') {
+        var validatedMoves = moveset.filter(
+            move => {
+            return move >= 0 && move <= 63;
+        });
+    }
     if(piece == 'black pawn') {
         console.log("boardNotation",boardNotation);
         var validatedMoves = moveset.sort();
@@ -347,16 +411,6 @@ function highlightPossibleMoves(movelist,color) {
 		if (color == "white") {
             if (document.querySelectorAll('#chessboard')[0].children[value].innerHTML.length == 0) {
                 document.querySelectorAll('#chessboard')[0].children[value].classList.add("white-moves");
-            }
-		}
-		if (color == "white bishop") {
-            if (document.querySelectorAll('#chessboard')[0].children[value].innerHTML.length == 0 && !blocked) {
-                document.querySelectorAll('#chessboard')[0].children[value].classList.add("white-moves");
-            }
-		}
-		if (color == "black bishop") {
-            if (document.querySelectorAll('#chessboard')[0].children[value].innerHTML.length == 0 && !blocked) {
-                document.querySelectorAll('#chessboard')[0].children[value].classList.add("black-moves");
             }
 		}
 	});
