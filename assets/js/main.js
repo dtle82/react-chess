@@ -137,6 +137,57 @@ class Queen extends Piece {
     }
 }
 
+class King extends Piece {
+    constructor(name, moveset,position,emoji) {
+        super(name, moveset,position,emoji);
+        globalPieceArray.push(this); // a global array to keep track of all piece class that have been instantiated
+    }
+    getPossibleMoves(boardIndex,boardPiece) {
+        var possible_moveset = [];
+        super.getMoveSet().right.map(function(move) {
+            var new_move = boardIndex+move;
+            if (Math.floor((new_move / 8)) == Math.floor((boardIndex / 8))) {
+                possible_moveset.push(boardIndex+move);
+            }
+        });
+        super.getMoveSet().left.map(function(move) {
+            var new_move = boardIndex+move;
+            if (Math.floor((new_move / 8)) == Math.floor((boardIndex / 8))) {
+                possible_moveset.push(boardIndex+move);
+            }
+        });
+        super.getMoveSet().down.map(function(move) {
+            var new_move = boardIndex+move;
+            possible_moveset.push(boardIndex+move);
+        });
+        super.getMoveSet().up.map(function(move) {
+            var new_move = boardIndex+move;
+            possible_moveset.push(boardIndex+move);
+        });
+        super.getMoveSet().downLeft.map(function(move) {
+            if (((boardIndex+move) % 8) <= (boardIndex % 8)) {
+                possible_moveset.push(boardIndex+move);
+            }
+        });
+        super.getMoveSet().downRight.map(function(move) {
+            if (((boardIndex+move) % 8) >= (boardIndex % 8)) {
+                possible_moveset.push(boardIndex+move);
+            }
+        });
+        super.getMoveSet().upLeft.map(function(move) {
+            if (((boardIndex+move) % 8) >= (boardIndex % 8)) {
+                possible_moveset.push(boardIndex+move);
+            }
+        });
+        super.getMoveSet().upRight.map(function(move) {
+            if (((boardIndex+move) % 8) <= (boardIndex % 8)) {
+                possible_moveset.push(boardIndex+move);
+            }
+        });
+        return possible_moveset;
+    }
+}
+
 var originalPieceLocation;
 var originalSquare;
 var boardNotation;
@@ -165,6 +216,14 @@ let queen = new Queen("queen",{ left: [0,-1,-2,-3,-4,-5,-6,-7],
     downRight: [9,18,27,36,45,56,63],
     upLeft: [-7,-14,-21,-28,-35,-42,-49,-56],
     upRight: [-9,-18,-27,-36,-45,-56]},"yes",["♛","♕"]);
+let king = new King("king",{ left: [-1],
+    right:[1],
+    up:[-8],
+    down:[8],
+    downLeft: [7],
+    downRight: [9],
+    upLeft: [-7],
+    upRight: [-9]},"yes",["♚","♕"]);
 
 function build_notation() {
     for(var i = 8;i>=1;i--) {
@@ -377,6 +436,12 @@ function validateMoveset(moveset,piece) {
         });
     }
     if(piece == 'queen') {
+        var validatedMoves = moveset.filter(
+            move => {
+            return move >= 0 && move <= 63;
+        });
+    }
+    if(piece == 'king') {
         var validatedMoves = moveset.filter(
             move => {
             return move >= 0 && move <= 63;
