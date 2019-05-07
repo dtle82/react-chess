@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import "./side-notation.css";
 
-function side-notation() {
-  return (
-    <div className="side-notation">
-      <h1>Chess in Javascript & SCSS</h1>
-      <div id="side-notation" />
-      <div id="chessboard" />
-      <div id="history">
-        <h2>Move History</h2>
+function SideNotation() {
+  const side_container = [];
+  for (var i = 8; i >= 1; i--) {
+    side_container.push(
+      <div key={i} className="side-notation">
+        {i}
       </div>
-    </div>
-  );
+    );
+  }
+
+  return <div className="side-notation">{side_container}</div>;
 }
 
-export default side-notation;
+export default SideNotation;
