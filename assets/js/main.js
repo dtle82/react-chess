@@ -223,7 +223,7 @@ let king = new King("king",{ left: [-1],
     downLeft: [7],
     downRight: [9],
     upLeft: [-7],
-    upRight: [-9]},"yes",["♚","♕"]);
+    upRight: [-9]},"yes",["♚","♔"]);
 
 function build_notation() {
     for(var i = 8;i>=1;i--) {
