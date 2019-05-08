@@ -3,6 +3,25 @@ import "./Chessboard.css";
 
 function Chessboard() {
   const bottomNotation = ["a", "b", "c", "d", "e", "f", "g", "h"];
+  const handleClick = event => {
+    console.log("notation is", getBoardNotation(event.target));
+  };
+  function getBoardNotation(paramTarget) {
+    var chessboard = document.getElementById("chessboard");
+    var index = Array.prototype.indexOf.call(chessboard.children, paramTarget);
+    var rank;
+    var file;
+
+    var rank_arr = [8, 7, 6, 5, 4, 3, 2, 1];
+    var file_arr = ["a", "b", "c", "d", "e", "f", "g", "h"];
+
+    rank = rank_arr[Math.floor(index / 8)];
+    file = file_arr[index % 8];
+
+    console.log("algebraic notation", file + rank);
+
+    return index;
+  }
   function isOdd(num) {
     return num % 2;
   }
@@ -21,27 +40,45 @@ function Chessboard() {
     var quotient = Math.floor(i / 8);
     if (isOdd(quotient)) {
       if (i % 2) {
-        board_array.push(<div className={alternateColor(starting_color)} />);
+        board_array.push(
+          <div
+            key={i}
+            className={alternateColor(starting_color)}
+            onClick={handleClick}
+          />
+        );
       } else {
-        board_array.push(<div className={starting_color} />);
+        board_array.push(
+          <div key={i} className={starting_color} onClick={handleClick} />
+        );
       }
     } else {
       if (i % 2) {
-        board_array.push(<div className={starting_color} />);
+        board_array.push(
+          <div key={i} className={starting_color} onClick={handleClick} />
+        );
       } else {
-        board_array.push(<div className={alternateColor(starting_color)} />);
+        board_array.push(
+          <div
+            key={i}
+            className={alternateColor(starting_color)}
+            onClick={handleClick}
+          />
+        );
       }
     }
   }
 
   return (
-    <div className="Chessboard">
-      <div id="chessboard">
-        {board_array}
-        {bottomNotation.map(function(notation) {
-          return <div className="bottom-notation">{notation}</div>;
-        })}
-      </div>
+    <div id="chessboard">
+      {board_array}
+      {bottomNotation.map(function(notation, key) {
+        return (
+          <div key={key} className="bottom-notation">
+            {notation}
+          </div>
+        );
+      })}
     </div>
   );
 }
