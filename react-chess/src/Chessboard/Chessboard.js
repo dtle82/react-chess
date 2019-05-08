@@ -2,17 +2,28 @@ import React, { useState } from "react";
 import "./Chessboard.css";
 
 const allPiece = [];
-const piece = {
-  name: "",
-  emoji: "",
-  color: "",
-  moveset: []
+let piece = {
+  getMoveset: function() {
+    return this.moveset;
+  }
 };
 
-const pawn = Object.assign(piece, { name: "pawn", emoji: "♟", color: "black" });
-pawn.moveset = [8, 16];
-allPiece.push(pawn);
-console.log("pawn", pawn);
+let black_pawn = Object.create(piece);
+Object.assign(black_pawn, {
+  name: "black pawn",
+  emoji: "♟",
+  color: "black",
+  moveset: [8, 16]
+});
+let white_pawn = Object.create(piece);
+Object.assign(white_pawn, {
+  name: "white pawn",
+  emoji: "♙",
+  color: "white",
+  moveset: [-8, -16]
+});
+allPiece.push(black_pawn);
+allPiece.push(white_pawn);
 
 function Chessboard() {
   const bottomNotation = ["a", "b", "c", "d", "e", "f", "g", "h"];
@@ -33,6 +44,7 @@ function Chessboard() {
   const [isSelected, setIsSelected] = useState(Array(64).fill(false));
   const [possibleMoves, setpossibleMoves] = useState(Array(64).fill(false));
 
+  console.log("allPiece", allPiece);
   const handleClick = event => {
     const index = getBoardNotation(event.target);
     const nextSquares = squares.slice();
@@ -47,8 +59,8 @@ function Chessboard() {
       allPiece.forEach(piece => {
         if (piece.emoji === event.target.innerHTML) {
           const nextPossibleMoves = Array(64).fill(false);
-          piece.moveset.forEach(index => {
-            nextPossibleMoves[index] = true;
+          piece.moveset.forEach(idx => {
+            nextPossibleMoves[index + idx] = true;
           });
           setpossibleMoves(nextPossibleMoves);
         }
@@ -100,7 +112,7 @@ function Chessboard() {
               " " +
               (isSelected[i] ? "selected" : "") +
               " " +
-              (possibleMoves[i] ? "selected" : "")
+              (possibleMoves[i] ? "black-moves" : "")
             }
             onClick={handleClick}
           >
@@ -116,7 +128,7 @@ function Chessboard() {
               " " +
               (isSelected[i] ? "selected" : "") +
               " " +
-              (possibleMoves[i] ? "selected" : "")
+              (possibleMoves[i] ? "black-moves" : "")
             }
             onClick={handleClick}
           >
@@ -134,7 +146,7 @@ function Chessboard() {
               " " +
               (isSelected[i] ? "selected" : "") +
               " " +
-              (possibleMoves[i] ? "selected" : "")
+              (possibleMoves[i] ? "black-moves" : "")
             }
             onClick={handleClick}
           >
@@ -150,7 +162,7 @@ function Chessboard() {
               " " +
               (isSelected[i] ? "selected" : "") +
               " " +
-              (possibleMoves[i] ? "selected" : "")
+              (possibleMoves[i] ? "black-moves" : "")
             }
             onClick={handleClick}
           >
