@@ -68,6 +68,16 @@ function Chessboard() {
     } else {
       console.log("was already selected!");
     }
+    if (possibleMoves[index]) {
+      const nextSquares = squares.slice();
+      const currentSelected = Array.prototype.indexOf.call(isSelected, true);
+      console.log("currentSelected", currentSelected);
+      nextSquares[currentSelected] = false;
+      nextSquares[index] = squares[currentSelected];
+      setSquares(nextSquares);
+      const nextPossibleMoves = Array(64).fill(false);
+      setpossibleMoves(nextPossibleMoves);
+    }
   };
 
   function getBoardNotation(paramTarget) {
