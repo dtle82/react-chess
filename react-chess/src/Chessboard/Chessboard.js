@@ -19,7 +19,7 @@ function Chessboard() {
 
   const white_position = ["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"];
   const white_pawn_position = Array(8).fill("♙");
-  const white_combined_position = white_position.concat(white_pawn_position);
+  const white_combined_position = white_pawn_position.concat(white_position);
   const neutral_positions = Array(4 * 8).fill("");
   const black_position = ["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"];
   const black_pawn_position = Array(8).fill("♟");
