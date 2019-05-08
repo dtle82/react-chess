@@ -1,6 +1,19 @@
 import React, { useState } from "react";
 import "./Chessboard.css";
 
+const allPiece = [];
+const piece = {
+  name: "",
+  emoji: "",
+  color: "",
+  moveset: []
+};
+
+const pawn = Object.assign(piece, { name: "pawn", emoji: "♟", color: "black" });
+pawn.moveset = [8, 16];
+allPiece.push(pawn);
+console.log("pawn", pawn);
+
 function Chessboard() {
   const bottomNotation = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
@@ -18,6 +31,7 @@ function Chessboard() {
       .concat(white_combined_position)
   );
   const [isSelected, setIsSelected] = useState(Array(64).fill(false));
+  const [possibleMoves, setpossibleMoves] = useState(Array(64).fill(false));
 
   const handleClick = event => {
     const index = getBoardNotation(event.target);
@@ -29,6 +43,16 @@ function Chessboard() {
       const nextSelected = Array(64).fill(false);
       nextSelected[index] = true;
       setIsSelected(nextSelected);
+
+      allPiece.forEach(piece => {
+        if (piece.emoji === event.target.innerHTML) {
+          const nextPossibleMoves = Array(64).fill(false);
+          piece.moveset.forEach(index => {
+            nextPossibleMoves[index] = true;
+          });
+          setpossibleMoves(nextPossibleMoves);
+        }
+      });
     } else {
       console.log("was already selected!");
     }
@@ -62,7 +86,7 @@ function Chessboard() {
     return color;
   }
   const board_array = [];
-  console.log("isSelected", isSelected);
+  console.log("possibleMoves", possibleMoves);
   for (var i = 0; i <= 63; i++) {
     var starting_color = "black";
     var quotient = Math.floor(i / 8);
@@ -74,7 +98,9 @@ function Chessboard() {
             className={
               alternateColor(starting_color) +
               " " +
-              (isSelected[i] ? "selected" : "")
+              (isSelected[i] ? "selected" : "") +
+              " " +
+              (possibleMoves[i] ? "selected" : "")
             }
             onClick={handleClick}
           >
@@ -85,7 +111,13 @@ function Chessboard() {
         board_array.push(
           <div
             key={i}
-            className={starting_color + " " + (isSelected[i] ? "selected" : "")}
+            className={
+              starting_color +
+              " " +
+              (isSelected[i] ? "selected" : "") +
+              " " +
+              (possibleMoves[i] ? "selected" : "")
+            }
             onClick={handleClick}
           >
             {squares[i]}
@@ -97,7 +129,13 @@ function Chessboard() {
         board_array.push(
           <div
             key={i}
-            className={starting_color + " " + (isSelected[i] ? "selected" : "")}
+            className={
+              starting_color +
+              " " +
+              (isSelected[i] ? "selected" : "") +
+              " " +
+              (possibleMoves[i] ? "selected" : "")
+            }
             onClick={handleClick}
           >
             {squares[i]}
@@ -110,7 +148,9 @@ function Chessboard() {
             className={
               alternateColor(starting_color) +
               " " +
-              (isSelected[i] ? "selected" : "")
+              (isSelected[i] ? "selected" : "") +
+              " " +
+              (possibleMoves[i] ? "selected" : "")
             }
             onClick={handleClick}
           >
