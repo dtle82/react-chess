@@ -3,17 +3,41 @@ import "./Chessboard.css";
 
 function Chessboard() {
   const bottomNotation = ["a", "b", "c", "d", "e", "f", "g", "h"];
-  const handleClick = event => {
-    console.log("notation is", getBoardNotation(event.target));
-  };
-  function getBoardNotation(paramTarget) {
-    var chessboard = document.getElementById("chessboard");
-    var index = Array.prototype.indexOf.call(chessboard.children, paramTarget);
-    var rank;
-    var file;
 
-    var rank_arr = [8, 7, 6, 5, 4, 3, 2, 1];
-    var file_arr = ["a", "b", "c", "d", "e", "f", "g", "h"];
+  const white_position = ["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"];
+  const white_pawn_position = Array(8).fill("♙");
+  const white_combined_position = white_position.concat(white_pawn_position);
+  const neutral_positions = Array(4 * 8).fill("");
+  const black_position = ["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"];
+  const black_pawn_position = Array(8).fill("♟");
+  const black_combined_position = black_position.concat(black_pawn_position);
+
+  const [squares, setSquares] = useState(
+    black_combined_position
+      .concat(neutral_positions)
+      .concat(white_combined_position)
+  );
+  const [isSelected, setIsSelected] = useState(Array(64).fill(false));
+
+  const handleClick = event => {
+    const index = getBoardNotation(event.target);
+    const nextSquares = squares.slice();
+    nextSquares[index] = squares[index];
+    setSquares(nextSquares);
+
+    const nextSelected = isSelected.slice();
+    nextSelected[index] = true;
+    setIsSelected(nextSelected);
+  };
+
+  function getBoardNotation(paramTarget) {
+    let chessboard = document.getElementById("chessboard");
+    let index = Array.prototype.indexOf.call(chessboard.children, paramTarget);
+    let rank;
+    let file;
+
+    let rank_arr = [8, 7, 6, 5, 4, 3, 2, 1];
+    let file_arr = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
     rank = rank_arr[Math.floor(index / 8)];
     file = file_arr[index % 8];
@@ -26,8 +50,7 @@ function Chessboard() {
     return num % 2;
   }
   function alternateColor(color) {
-    var color;
-    if (color == "black") {
+    if (color === "black") {
       color = "white";
     } else {
       color = "black";
@@ -35,6 +58,7 @@ function Chessboard() {
     return color;
   }
   const board_array = [];
+  console.log("isSelected", isSelected);
   for (var i = 0; i <= 63; i++) {
     var starting_color = "black";
     var quotient = Math.floor(i / 8);
@@ -43,27 +67,51 @@ function Chessboard() {
         board_array.push(
           <div
             key={i}
-            className={alternateColor(starting_color)}
+            className={
+              alternateColor(starting_color) +
+              " " +
+              (isSelected[i] ? "selected" : "")
+            }
             onClick={handleClick}
-          />
-        );
-      } else {
-        board_array.push(
-          <div key={i} className={starting_color} onClick={handleClick} />
-        );
-      }
-    } else {
-      if (i % 2) {
-        board_array.push(
-          <div key={i} className={starting_color} onClick={handleClick} />
+          >
+            {squares[i]}
+          </div>
         );
       } else {
         board_array.push(
           <div
             key={i}
-            className={alternateColor(starting_color)}
+            className={starting_color + " " + (isSelected[i] ? "selected" : "")}
             onClick={handleClick}
-          />
+          >
+            {squares[i]}
+          </div>
+        );
+      }
+    } else {
+      if (i % 2) {
+        board_array.push(
+          <div
+            key={i}
+            className={starting_color + " " + (isSelected[i] ? "selected" : "")}
+            onClick={handleClick}
+          >
+            {squares[i]}
+          </div>
+        );
+      } else {
+        board_array.push(
+          <div
+            key={i}
+            className={
+              alternateColor(starting_color) +
+              " " +
+              (isSelected[i] ? "selected" : "")
+            }
+            onClick={handleClick}
+          >
+            {squares[i]}
+          </div>
         );
       }
     }
