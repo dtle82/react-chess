@@ -25,9 +25,13 @@ function Chessboard() {
     nextSquares[index] = squares[index];
     setSquares(nextSquares);
 
-    const nextSelected = isSelected.slice();
-    nextSelected[index] = true;
-    setIsSelected(nextSelected);
+    if (isSelected[index] === false) {
+      const nextSelected = Array(64).fill(false);
+      nextSelected[index] = true;
+      setIsSelected(nextSelected);
+    } else {
+      console.log("was already selected!");
+    }
   };
 
   function getBoardNotation(paramTarget) {
