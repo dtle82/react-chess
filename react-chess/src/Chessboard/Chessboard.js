@@ -1,41 +1,74 @@
 import React, { useState } from "react";
-import "./Chessboard.css";
 
 const allPiece = [];
-let piece = {
-  getMoveset: function() {
-    return this.moveset;
-  }
-};
 
-let black_pawn = Object.create(piece);
-Object.assign(black_pawn, {
-  name: "black pawn",
-  emoji: "♟",
-  color: "black",
-  moveset: [8, 16]
+function factory_piece(name, emoji, color, moveset, location, history) {
+  let piece = {
+    getName: function() {
+      return this.name;
+    },
+    getMoveset: function() {
+      return this.moveset;
+    },
+    getEmoji: function() {
+      return this.emoji;
+    },
+    getLocation: function() {
+      return this.location;
+    },
+    setLocation: function(location) {
+      this.location = location;
+    },
+    updateHistory: function(notation) {
+      this.history.push(notation);
+    },
+    validate: function() {
+      switch (this.emoji) {
+        case "♟":
+          if (this.history.length > 0) {
+            this.moveset = [8];
+          }
+          break;
+        case "♙":
+          if (this.history.length > 0) {
+            this.moveset = [-8];
+          }
+          break;
+      }
+    }
+  };
+
+  let obj = Object.assign(Object.create(piece), {
+    name,
+    emoji,
+    color,
+    moveset,
+    location,
+    history
+  });
+
+  allPiece.push(obj);
+  return obj;
+}
+
+const bottomNotation = ["a", "b", "c", "d", "e", "f", "g", "h"];
+
+const white_position = ["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"];
+const white_pawn_position = Array(8).fill("♙");
+const white_combined_position = white_pawn_position.concat(white_position);
+const neutral_positions = Array(4 * 8).fill("");
+const black_position = ["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"];
+const black_pawn_position = Array(8).fill("♟");
+const black_combined_position = black_position.concat(black_pawn_position);
+
+black_pawn_position.forEach((pawn, idx) => {
+  factory_piece("pawn", "♟", "black", [8, 16], idx + 8, []);
 });
-let white_pawn = Object.create(piece);
-Object.assign(white_pawn, {
-  name: "white pawn",
-  emoji: "♙",
-  color: "white",
-  moveset: [-8, -16]
+white_pawn_position.forEach((pawn, idx) => {
+  factory_piece("pawn", "♙", "white", [-8, -16], idx + 48, []);
 });
-allPiece.push(black_pawn);
-allPiece.push(white_pawn);
 
 function Chessboard() {
-  const bottomNotation = ["a", "b", "c", "d", "e", "f", "g", "h"];
-
-  const white_position = ["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"];
-  const white_pawn_position = Array(8).fill("♙");
-  const white_combined_position = white_pawn_position.concat(white_position);
-  const neutral_positions = Array(4 * 8).fill("");
-  const black_position = ["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"];
-  const black_pawn_position = Array(8).fill("♟");
-  const black_combined_position = black_position.concat(black_pawn_position);
-
   const [squares, setSquares] = useState(
     black_combined_position
       .concat(neutral_positions)
@@ -44,8 +77,8 @@ function Chessboard() {
   const [isSelected, setIsSelected] = useState(Array(64).fill(false));
   const [possibleMoves, setpossibleMoves] = useState(Array(64).fill(false));
 
-  console.log("allPiece", allPiece);
   const handleClick = event => {
+    console.log("allPiece", allPiece);
     const index = getBoardNotation(event.target);
     const nextSquares = squares.slice();
     nextSquares[index] = squares[index];
@@ -55,28 +88,34 @@ function Chessboard() {
       const nextSelected = Array(64).fill(false);
       nextSelected[index] = true;
       setIsSelected(nextSelected);
-
       allPiece.forEach(piece => {
-        if (piece.emoji === event.target.innerHTML) {
+        if (piece.getLocation() === index) {
           const nextPossibleMoves = Array(64).fill(false);
+          console.log("piece", piece);
+          piece.validate();
           piece.moveset.forEach(idx => {
             nextPossibleMoves[index + idx] = true;
           });
           setpossibleMoves(nextPossibleMoves);
         }
       });
-    } else {
-      console.log("was already selected!");
     }
     if (possibleMoves[index]) {
       const nextSquares = squares.slice();
       const currentSelected = Array.prototype.indexOf.call(isSelected, true);
-      console.log("currentSelected", currentSelected);
       nextSquares[currentSelected] = false;
       nextSquares[index] = squares[currentSelected];
+      allPiece.forEach(piece => {
+        if (piece.getLocation() === currentSelected) {
+          piece.setLocation(index);
+          piece.updateHistory(currentSelected);
+        }
+      });
       setSquares(nextSquares);
       const nextPossibleMoves = Array(64).fill(false);
       setpossibleMoves(nextPossibleMoves);
+      setIsSelected(Array(64).fill(false));
+      console.log("allPiece", allPiece);
     }
   };
 
@@ -93,6 +132,7 @@ function Chessboard() {
     file = file_arr[index % 8];
 
     console.log("algebraic notation", file + rank);
+    console.log("simple index", index);
 
     return index;
   }
@@ -108,7 +148,6 @@ function Chessboard() {
     return color;
   }
   const board_array = [];
-  console.log("possibleMoves", possibleMoves);
   for (var i = 0; i <= 63; i++) {
     var starting_color = "black";
     var quotient = Math.floor(i / 8);
