@@ -4,7 +4,8 @@ export const factory_piece = function(
   color,
   moveset,
   location,
-  history
+  history,
+  captureSet
 ) {
   let piece = {
     getName: function() {
@@ -12,6 +13,9 @@ export const factory_piece = function(
     },
     getMoveset: function() {
       return this.moveset;
+    },
+    getCaptureSet: function() {
+      return this.captureSet;
     },
     getEmoji: function() {
       return this.emoji;
@@ -30,11 +34,13 @@ export const factory_piece = function(
         case "♟":
           if (this.history.length > 0) {
             this.moveset = [8];
+            this.captureSet = [7, 9];
           }
           break;
         case "♙":
           if (this.history.length > 0) {
             this.moveset = [-8];
+            this.captureSet = [-7, -9];
           }
           break;
         default:
@@ -49,7 +55,8 @@ export const factory_piece = function(
     color,
     moveset,
     location,
-    history
+    history,
+    captureSet
   });
   return obj;
 };

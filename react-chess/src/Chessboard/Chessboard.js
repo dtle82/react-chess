@@ -19,10 +19,12 @@ const black_pawn_position = Array(8).fill("♟");
 const black_combined_position = black_position.concat(black_pawn_position);
 
 black_pawn_position.forEach((pawn, idx) => {
-  allPiece.push(factory_piece("pawn", "♟", "black", [8, 16], idx + 8, []));
+  allPiece.push(factory_piece("pawn", "♟", "black", [8, 16], idx + 8, [], []));
 });
 white_pawn_position.forEach((pawn, idx) => {
-  allPiece.push(factory_piece("pawn", "♙", "white", [-8, -16], idx + 48, []));
+  allPiece.push(
+    factory_piece("pawn", "♙", "white", [-8, -16], idx + 48, [], [])
+  );
 });
 
 function Chessboard() {
@@ -49,10 +51,18 @@ function Chessboard() {
       allPiece.forEach(piece => {
         if (piece.getLocation() === index) {
           const nextPossibleMoves = Array(64).fill(false);
-          console.log("piece", piece);
           piece.validate();
-          piece.moveset.forEach(idx => {
-            nextPossibleMoves[index + idx] = true;
+          piece.getMoveset().forEach(idx => {
+            // checks if possible square already has a value
+            if (!nextSquares[index + idx]) {
+              nextPossibleMoves[index + idx] = true;
+            }
+          });
+          piece.getCaptureSet().forEach(idx => {
+            // checks if possible square already has a value for pawn capture
+            if (nextSquares[index + idx]) {
+              nextPossibleMoves[index + idx] = true;
+            }
           });
           setpossibleMoves(nextPossibleMoves);
         }
@@ -77,77 +87,63 @@ function Chessboard() {
     }
   };
 
+  function renderSquares(paramIndex, alternate) {
+    // if true, start the square on this rank with black
+    console.log("paramIndex", paramIndex);
+    console.log("possibleMoves[paramIndex]", possibleMoves[paramIndex]);
+    console.log("squares[paramIndex]", squares[paramIndex]);
+    if (alternate) {
+      return (
+        <div
+          key={paramIndex}
+          className={
+            alternateColor(starting_color) +
+            (isSelected[paramIndex] ? " selected" : "") +
+            (possibleMoves[paramIndex] ? " black-moves" : "") +
+            (possibleMoves[paramIndex] && squares[paramIndex]
+              ? " capture-moves"
+              : "")
+          }
+          onClick={handleClick}
+        >
+          {squares[paramIndex]}
+        </div>
+      );
+    } else {
+      return (
+        <div
+          key={paramIndex}
+          className={
+            starting_color +
+            (isSelected[paramIndex] ? " selected" : "") +
+            (possibleMoves[paramIndex] ? " black-moves" : "") +
+            (possibleMoves[paramIndex] && squares[paramIndex]
+              ? " capture-moves"
+              : "")
+          }
+          onClick={handleClick}
+        >
+          {squares[paramIndex]}
+        </div>
+      );
+    }
+  }
+
   const board_array = [];
   for (var i = 0; i <= 63; i++) {
     var starting_color = "black";
     var quotient = Math.floor(i / 8);
     if (isOdd(quotient)) {
       if (i % 2) {
-        board_array.push(
-          <div
-            key={i}
-            className={
-              alternateColor(starting_color) +
-              " " +
-              (isSelected[i] ? "selected" : "") +
-              " " +
-              (possibleMoves[i] ? "black-moves" : "")
-            }
-            onClick={handleClick}
-          >
-            {squares[i]}
-          </div>
-        );
+        board_array.push(renderSquares(i, true));
       } else {
-        board_array.push(
-          <div
-            key={i}
-            className={
-              starting_color +
-              " " +
-              (isSelected[i] ? "selected" : "") +
-              " " +
-              (possibleMoves[i] ? "black-moves" : "")
-            }
-            onClick={handleClick}
-          >
-            {squares[i]}
-          </div>
-        );
+        board_array.push(renderSquares(i, false));
       }
     } else {
       if (i % 2) {
-        board_array.push(
-          <div
-            key={i}
-            className={
-              starting_color +
-              " " +
-              (isSelected[i] ? "selected" : "") +
-              " " +
-              (possibleMoves[i] ? "black-moves" : "")
-            }
-            onClick={handleClick}
-          >
-            {squares[i]}
-          </div>
-        );
+        board_array.push(renderSquares(i, false));
       } else {
-        board_array.push(
-          <div
-            key={i}
-            className={
-              alternateColor(starting_color) +
-              " " +
-              (isSelected[i] ? "selected" : "") +
-              " " +
-              (possibleMoves[i] ? "black-moves" : "")
-            }
-            onClick={handleClick}
-          >
-            {squares[i]}
-          </div>
-        );
+        board_array.push(renderSquares(i, true));
       }
     }
   }
