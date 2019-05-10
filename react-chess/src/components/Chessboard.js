@@ -64,7 +64,7 @@ function Chessboard() {
     setSquares(nextSquares);
 
     console.log("isSelected[index]", isSelected[index]);
-    if (isSelected[index] === false) {
+    if (isSquareAlreadyClicked(isSelected[index])) {
       const nextSelected = Array(64).fill(false);
       nextSelected[index] = true;
       setIsSelected(nextSelected);
@@ -73,7 +73,8 @@ function Chessboard() {
       setpossibleMoves(nextPossibleMoves);
     }
 
-    if (typeof squares[index] == "object") {
+    if (isObject(squares[index])) {
+      console.log("TRUE!");
       const nextPossibleMoves = Array(64).fill(false);
       squares[index].validate();
       squares[index].getMoveset().forEach(idx => {
@@ -105,12 +106,16 @@ function Chessboard() {
     }
   };
 
+  function isSquareAlreadyClicked(square) {
+    return square === false;
+  }
+
+  function isObject(squareObject) {
+    return typeof squareObject == "object";
+  }
+
   function isPieceObject(obj) {
-    if (obj.hasOwnProperty("emoji")) {
-      return obj.getEmoji();
-    } else {
-      return obj;
-    }
+    return obj.hasOwnProperty("emoji") ? obj.getEmoji() : obj;
   }
 
   function renderSquares(paramIndex, alternate) {
