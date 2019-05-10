@@ -61,8 +61,6 @@ function Chessboard() {
   const [isSelected, setIsSelected] = useState(Array(64).fill(false));
   const [possibleMoves, setpossibleMoves] = useState(Array(64).fill(false));
 
-  console.log("allPiece", allPiece);
-
   const handleClick = event => {
     const index = getBoardNotation(event.target);
     const nextSquares = squares.slice();
@@ -70,12 +68,16 @@ function Chessboard() {
     setSquares(nextSquares);
 
     console.log("squares[index]", squares[index]);
+    console.log("isSelected[index]", isSelected[index]);
 
-    if (isSelected[index] === false && typeof squares[index] == "object") {
+    if (isSelected[index] === false) {
       const nextSelected = Array(64).fill(false);
       nextSelected[index] = true;
       setIsSelected(nextSelected);
+    }
 
+    if (typeof squares[index] == "object") {
+      console.log("true", squares[index]);
       const nextPossibleMoves = Array(64).fill(false);
       squares[index].validate();
       squares[index].getMoveset().forEach(idx => {
@@ -92,17 +94,14 @@ function Chessboard() {
       });
       setpossibleMoves(nextPossibleMoves);
     }
+
     if (possibleMoves[index]) {
       const nextSquares = squares.slice();
       const currentSelected = Array.prototype.indexOf.call(isSelected, true);
       nextSquares[currentSelected] = false;
       nextSquares[index] = squares[currentSelected];
-      allPiece.forEach(piece => {
-        if (piece.getLocation() === currentSelected) {
-          piece.setLocation(index);
-          piece.updateHistory(currentSelected);
-        }
-      });
+      squares[currentSelected].setLocation(index);
+      squares[currentSelected].updateHistory(currentSelected);
       setSquares(nextSquares);
       const nextPossibleMoves = Array(64).fill(false);
       setpossibleMoves(nextPossibleMoves);
