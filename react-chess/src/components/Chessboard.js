@@ -12,20 +12,45 @@ const bottomNotation = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
 const white_position = ["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"];
 const white_pawn_position = Array(8).fill("♙");
-const white_combined_position = white_pawn_position.concat(white_position);
+const generated_white_pawn_position = white_pawn_position.map((pawn, idx) => {
+  const obj = factory_piece(
+    "pawn",
+    pawn,
+    "white",
+    [-8, -16],
+    idx + 48,
+    [],
+    [],
+    "active"
+  );
+  allPiece.push(obj);
+  return obj;
+});
+const white_combined_position = generated_white_pawn_position.concat(
+  white_position
+);
+
 const neutral_positions = Array(4 * 8).fill("");
 const black_position = ["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"];
 const black_pawn_position = Array(8).fill("♟");
-const black_combined_position = black_position.concat(black_pawn_position);
 
-black_pawn_position.forEach((pawn, idx) => {
-  allPiece.push(factory_piece("pawn", "♟", "black", [8, 16], idx + 8, [], []));
-});
-white_pawn_position.forEach((pawn, idx) => {
-  allPiece.push(
-    factory_piece("pawn", "♙", "white", [-8, -16], idx + 48, [], [])
+const generated_black_pawn_position = black_pawn_position.map((pawn, idx) => {
+  const obj = factory_piece(
+    "pawn",
+    pawn,
+    "black",
+    [8, 16],
+    idx + 8,
+    [],
+    [],
+    "active"
   );
+  allPiece.push(obj);
+  return obj;
 });
+const black_combined_position = black_position.concat(
+  generated_black_pawn_position
+);
 
 function Chessboard() {
   const [squares, setSquares] = useState(
@@ -44,10 +69,13 @@ function Chessboard() {
     nextSquares[index] = squares[index];
     setSquares(nextSquares);
 
+    console.log("squares", squares);
+
     if (isSelected[index] === false) {
       const nextSelected = Array(64).fill(false);
       nextSelected[index] = true;
       setIsSelected(nextSelected);
+
       allPiece.forEach(piece => {
         if (piece.getLocation() === index) {
           const nextPossibleMoves = Array(64).fill(false);
@@ -87,11 +115,16 @@ function Chessboard() {
     }
   };
 
+  function isPieceObject(obj) {
+    if (obj.hasOwnProperty("emoji")) {
+      return obj.getEmoji();
+    } else {
+      return obj;
+    }
+  }
+
   function renderSquares(paramIndex, alternate) {
     // if true, start the square on this rank with black
-    console.log("paramIndex", paramIndex);
-    console.log("possibleMoves[paramIndex]", possibleMoves[paramIndex]);
-    console.log("squares[paramIndex]", squares[paramIndex]);
     if (alternate) {
       return (
         <div
@@ -106,7 +139,7 @@ function Chessboard() {
           }
           onClick={handleClick}
         >
-          {squares[paramIndex]}
+          {isPieceObject(squares[paramIndex])}
         </div>
       );
     } else {
@@ -123,7 +156,7 @@ function Chessboard() {
           }
           onClick={handleClick}
         >
-          {squares[paramIndex]}
+          {isPieceObject(squares[paramIndex])}
         </div>
       );
     }

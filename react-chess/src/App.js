@@ -1,6 +1,6 @@
 import React from "react";
-import SideNotation from "./side-notation/side-notation";
-import Chessboard from "./Chessboard/Chessboard";
+import SideNotation from "./components/side-notation";
+import Chessboard from "./components/Chessboard";
 import "./App.css";
 
 function App() {

@@ -5,7 +5,8 @@ export const factory_piece = function(
   moveset,
   location,
   history,
-  captureSet
+  captureSet,
+  status
 ) {
   let piece = {
     getName: function() {
@@ -28,6 +29,9 @@ export const factory_piece = function(
     },
     updateHistory: function(notation) {
       this.history.push(notation);
+    },
+    setStatus: function(status) {
+      this.status = status;
     },
     validate: function() {
       switch (this.emoji) {
@@ -56,7 +60,8 @@ export const factory_piece = function(
     moveset,
     location,
     history,
-    captureSet
+    captureSet,
+    status
   });
   return obj;
 };
