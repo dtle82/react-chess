@@ -6,8 +6,6 @@ import {
   factory_piece
 } from "../helpers.js";
 
-const allPiece = [];
-
 const bottomNotation = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
 const white_position = ["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"];
@@ -23,7 +21,6 @@ const generated_white_pawn_position = white_pawn_position.map((pawn, idx) => {
     [],
     "active"
   );
-  allPiece.push(obj);
   return obj;
 });
 const white_combined_position = generated_white_pawn_position.concat(
@@ -45,7 +42,6 @@ const generated_black_pawn_position = black_pawn_position.map((pawn, idx) => {
     [],
     "active"
   );
-  allPiece.push(obj);
   return obj;
 });
 const black_combined_position = black_position.concat(
@@ -67,17 +63,17 @@ function Chessboard() {
     nextSquares[index] = squares[index];
     setSquares(nextSquares);
 
-    console.log("squares[index]", squares[index]);
     console.log("isSelected[index]", isSelected[index]);
-
     if (isSelected[index] === false) {
       const nextSelected = Array(64).fill(false);
       nextSelected[index] = true;
       setIsSelected(nextSelected);
+
+      const nextPossibleMoves = Array(64).fill(false);
+      setpossibleMoves(nextPossibleMoves);
     }
 
     if (typeof squares[index] == "object") {
-      console.log("true", squares[index]);
       const nextPossibleMoves = Array(64).fill(false);
       squares[index].validate();
       squares[index].getMoveset().forEach(idx => {
@@ -106,7 +102,6 @@ function Chessboard() {
       const nextPossibleMoves = Array(64).fill(false);
       setpossibleMoves(nextPossibleMoves);
       setIsSelected(Array(64).fill(false));
-      console.log("allPiece", allPiece);
     }
   };
 
