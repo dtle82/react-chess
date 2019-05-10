@@ -1,8 +1,7 @@
-Chess in Javascript & SCSS
-=====================
+# Chess in Javascript & SCSS
 
 V 1.00
 Develop with HTML/SCSS/Javascript with OOP
 
 V 2.00
-Develop with React & Redux
+Develop with React & React Hooks & Redux
