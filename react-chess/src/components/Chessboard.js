@@ -69,32 +69,28 @@ function Chessboard() {
     nextSquares[index] = squares[index];
     setSquares(nextSquares);
 
-    console.log("squares", squares);
+    console.log("squares[index]", squares[index]);
 
-    if (isSelected[index] === false) {
+    if (isSelected[index] === false && typeof squares[index] == "object") {
       const nextSelected = Array(64).fill(false);
       nextSelected[index] = true;
       setIsSelected(nextSelected);
 
-      allPiece.forEach(piece => {
-        if (piece.getLocation() === index) {
-          const nextPossibleMoves = Array(64).fill(false);
-          piece.validate();
-          piece.getMoveset().forEach(idx => {
-            // checks if possible square already has a value
-            if (!nextSquares[index + idx]) {
-              nextPossibleMoves[index + idx] = true;
-            }
-          });
-          piece.getCaptureSet().forEach(idx => {
-            // checks if possible square already has a value for pawn capture
-            if (nextSquares[index + idx]) {
-              nextPossibleMoves[index + idx] = true;
-            }
-          });
-          setpossibleMoves(nextPossibleMoves);
+      const nextPossibleMoves = Array(64).fill(false);
+      squares[index].validate();
+      squares[index].getMoveset().forEach(idx => {
+        // checks if possible square already has a value
+        if (!nextSquares[index + idx]) {
+          nextPossibleMoves[index + idx] = true;
         }
       });
+      squares[index].getCaptureSet().forEach(idx => {
+        // checks if possible square already has a value for pawn capture
+        if (nextSquares[index + idx]) {
+          nextPossibleMoves[index + idx] = true;
+        }
+      });
+      setpossibleMoves(nextPossibleMoves);
     }
     if (possibleMoves[index]) {
       const nextSquares = squares.slice();
