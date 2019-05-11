@@ -107,7 +107,7 @@ function Chessboard() {
     return (
       opponentSquare.hasOwnProperty("color") &&
       selfSquare.hasOwnProperty("color") &&
-      opponentSquare.getColor() != selfSquare.getColor()
+      opponentSquare.getColor() !== selfSquare.getColor()
     );
   }
 
