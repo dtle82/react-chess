@@ -41,14 +41,14 @@ export const factory_piece = function(
         case "♟":
           if (this.history.length > 0) {
             this.moveset = [8];
-            this.captureSet = [7, 9];
           }
+          this.captureSet = [7, 9];
           break;
         case "♙":
           if (this.history.length > 0) {
             this.moveset = [-8];
-            this.captureSet = [-7, -9];
           }
+          this.captureSet = [-7, -9];
           break;
         default:
           break;
