@@ -8,7 +8,9 @@ export const factory_piece = function(
   captureSet,
   status
 ) {
-  let piece = {
+  const piece = {
+    isFree: true,
+
     getName: function() {
       return this.name;
     },
@@ -36,7 +38,18 @@ export const factory_piece = function(
     setStatus: function(status) {
       this.status = status;
     },
+    getIsFree: function() {
+      return this.isFree;
+    },
+    setBlocked: function() {
+      this.isFree = false;
+    },
+    setFree: function() {
+      this.isFree = true;
+    },
     validate: function() {
+      // frees up block status before every click
+      this.setFree();
       switch (this.emoji) {
         case "♟":
           if (this.history.length > 0) {

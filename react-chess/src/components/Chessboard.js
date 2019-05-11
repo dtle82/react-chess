@@ -76,8 +76,10 @@ function Chessboard() {
       const nextPossibleMoves = Array(64).fill(false);
       squares[index].validate();
       squares[index].getMoveset().forEach(idx => {
-        if (!nextSquares[index + idx]) {
+        if (!nextSquares[index + idx] && squares[index].getIsFree()) {
           nextPossibleMoves[index + idx] = true;
+        } else {
+          squares[index].setBlocked();
         }
       });
       squares[index].getCaptureSet().forEach(idx => {
