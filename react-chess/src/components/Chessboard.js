@@ -63,7 +63,6 @@ function Chessboard() {
     nextSquares[index] = squares[index];
     setSquares(nextSquares);
 
-    console.log("isSelected[index]", isSelected[index]);
     if (isSquareAlreadyClicked(isSelected[index])) {
       const nextSelected = Array(64).fill(false);
       nextSelected[index] = true;
@@ -74,18 +73,15 @@ function Chessboard() {
     }
 
     if (isObject(squares[index])) {
-      console.log("TRUE!");
       const nextPossibleMoves = Array(64).fill(false);
       squares[index].validate();
       squares[index].getMoveset().forEach(idx => {
-        // checks if possible square already has a value
         if (!nextSquares[index + idx]) {
           nextPossibleMoves[index + idx] = true;
         }
       });
       squares[index].getCaptureSet().forEach(idx => {
-        // checks if possible square already has a value for pawn capture
-        if (nextSquares[index + idx]) {
+        if (squareContainsOpponent(nextSquares[index + idx], squares[index])) {
           nextPossibleMoves[index + idx] = true;
         }
       });
@@ -105,6 +101,15 @@ function Chessboard() {
       setIsSelected(Array(64).fill(false));
     }
   };
+
+  function squareContainsOpponent(opponentSquare, selfSquare) {
+    //checks if possible capture square contains an opponent by checking if square contains object and that the colors do not match
+    return (
+      opponentSquare.hasOwnProperty("color") &&
+      selfSquare.hasOwnProperty("color") &&
+      opponentSquare.getColor() != selfSquare.getColor()
+    );
+  }
 
   function isSquareAlreadyClicked(square) {
     return square === false;

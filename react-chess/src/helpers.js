@@ -12,6 +12,9 @@ export const factory_piece = function(
     getName: function() {
       return this.name;
     },
+    getColor: function() {
+      return this.color;
+    },
     getMoveset: function() {
       return this.moveset;
     },
