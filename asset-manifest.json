@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/react-chess/static/css/main.8ad7eeae.chunk.css",
+    "main.js": "/react-chess/static/js/main.f1f6c28b.chunk.js",
+    "main.js.map": "/react-chess/static/js/main.f1f6c28b.chunk.js.map",
+    "runtime~main.js": "/react-chess/static/js/runtime~main.590f6eee.js",
+    "runtime~main.js.map": "/react-chess/static/js/runtime~main.590f6eee.js.map",
+    "static/js/2.c2695c00.chunk.js": "/react-chess/static/js/2.c2695c00.chunk.js",
+    "static/js/2.c2695c00.chunk.js.map": "/react-chess/static/js/2.c2695c00.chunk.js.map",
+    "index.html": "/react-chess/index.html",
+    "precache-manifest.c4661926735de5ada40b5e08e64ceace.js": "/react-chess/precache-manifest.c4661926735de5ada40b5e08e64ceace.js",
+    "service-worker.js": "/react-chess/service-worker.js",
+    "static/css/main.8ad7eeae.chunk.css.map": "/react-chess/static/css/main.8ad7eeae.chunk.css.map",
+    "static/media/App.css": "/react-chess/static/media/wood-pattern.02464a71.png"
+  }
+}
