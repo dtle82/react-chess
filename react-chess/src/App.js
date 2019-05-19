@@ -9,7 +9,7 @@ function App() {
   return (
     <Store>
       <div className="App">
-        <h1>Chess in Javascript & SCSS</h1>
+        <h1>React Chess</h1>
         <SideNotation />
         <Chessboard />
         <History />
