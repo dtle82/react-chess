@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const HistoryContext = React.createContext([]);
+export const HistoryContext = React.createContext();
 
 const Store = ({ children }) => {
   const [history, setHistory] = useState([]);

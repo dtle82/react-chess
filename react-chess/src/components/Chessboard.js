@@ -60,7 +60,7 @@ function Chessboard() {
   const [possibleMoves, setpossibleMoves] = useState(Array(64).fill(false));
 
   const handleClick = event => {
-    const { notation, index } = getBoardNotation(event.target);
+    const { index } = getBoardNotation(event.target);
     const nextSquares = squares.slice();
     nextSquares[index] = squares[index];
     setSquares(nextSquares);
@@ -103,7 +103,7 @@ function Chessboard() {
       const { notation } = getBoardNotation(
         document.getElementById("chessboard").children[currentSelected]
       );
-      nextHistory.push(notation);
+      nextHistory.push(notation + ` (${squares[currentSelected].getColor()})`);
       setHistory(nextHistory);
       setSquares(nextSquares);
       const nextPossibleMoves = Array(64).fill(false);

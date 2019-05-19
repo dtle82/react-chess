@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import SideNotation from "./components/side-notation";
 import Chessboard from "./components/Chessboard";
 import History from "./components/History";
