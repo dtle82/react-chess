@@ -94,10 +94,11 @@ export const getBoardNotation = function(paramTarget) {
   rank = rank_arr[Math.floor(index / 8)];
   file = file_arr[index % 8];
 
+  let notation = file + rank;
   console.log("algebraic notation", file + rank);
-  console.log("simple index", index);
+  //console.log("simple index", index);
 
-  return index;
+  return { notation, index };
 };
 
 export const isOdd = function(num) {

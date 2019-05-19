@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   getBoardNotation,
   isOdd,
   alternateColor,
   factory_piece
 } from "../helpers.js";
+import { HistoryContext } from "../Store";
 
 const bottomNotation = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
@@ -49,6 +50,7 @@ const black_combined_position = black_position.concat(
 );
 
 function Chessboard() {
+  const [history, setHistory] = useContext(HistoryContext);
   const [squares, setSquares] = useState(
     black_combined_position
       .concat(neutral_positions)
@@ -58,7 +60,7 @@ function Chessboard() {
   const [possibleMoves, setpossibleMoves] = useState(Array(64).fill(false));
 
   const handleClick = event => {
-    const index = getBoardNotation(event.target);
+    const { notation, index } = getBoardNotation(event.target);
     const nextSquares = squares.slice();
     nextSquares[index] = squares[index];
     setSquares(nextSquares);
@@ -97,6 +99,12 @@ function Chessboard() {
       nextSquares[index] = squares[currentSelected];
       squares[currentSelected].setLocation(index);
       squares[currentSelected].updateHistory(currentSelected);
+      const nextHistory = history.slice();
+      const { notation } = getBoardNotation(
+        document.getElementById("chessboard").children[currentSelected]
+      );
+      nextHistory.push(notation);
+      setHistory(nextHistory);
       setSquares(nextSquares);
       const nextPossibleMoves = Array(64).fill(false);
       setpossibleMoves(nextPossibleMoves);
