@@ -6,6 +6,7 @@ import {
   factory_piece
 } from "../helpers.js";
 import { HistoryContext } from "../Store";
+import { TurnContext } from "../Store";
 
 const bottomNotation = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
@@ -51,6 +52,7 @@ const black_combined_position = black_position.concat(
 
 function Chessboard() {
   const [history, setHistory] = useContext(HistoryContext);
+  const [isWhiteNext, setIsWhiteNext] = useContext(TurnContext);
   const [squares, setSquares] = useState(
     black_combined_position
       .concat(neutral_positions)
@@ -109,6 +111,8 @@ function Chessboard() {
       const nextPossibleMoves = Array(64).fill(false);
       setpossibleMoves(nextPossibleMoves);
       setIsSelected(Array(64).fill(false));
+      const isBlackNext = !isWhiteNext;
+      setIsWhiteNext(isBlackNext);
     }
   };
 

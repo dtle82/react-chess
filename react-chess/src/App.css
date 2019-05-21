@@ -15,19 +15,40 @@ h1 {
   cursor: pointer;
   background: #3163b8;
 }
-
-#history {
+#sideinfo {
   float: left;
   width: 640px;
   height: 640px;
   margin: 20px;
   border: 1px solid #ccc;
-  padding: 20px;
+  padding: 0px 20px;
+}
+
+#sideinfo h2 {
+  text-align: center;
+}
+
+#history {
+  margin: 20px;
+  padding: 0px 20px;
 }
 #history h2 {
   text-align: center;
 }
-
+.turn-display {
+  width: 45%;
+  height: 50px;
+  float: left;
+  text-align: center;
+  padding: 2.5%;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+.current {
+  border: 1px solid #3163b8;
+  color: white;
+  background-color: #3163b8;
+}
 .black {
   background-image: url("wood-pattern.png");
   float: left;

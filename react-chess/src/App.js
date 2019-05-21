@@ -1,7 +1,7 @@
 import React from "react";
 import SideNotation from "./components/side-notation";
 import Chessboard from "./components/Chessboard";
-import History from "./components/History";
+import Sideinfo from "./components/Sideinfo";
 import Store from "./Store";
 import "./App.css";
 
@@ -12,7 +12,7 @@ function App() {
         <h1>React Chess</h1>
         <SideNotation />
         <Chessboard />
-        <History />
+        <Sideinfo />
       </div>
     </Store>
   );
