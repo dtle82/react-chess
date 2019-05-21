@@ -78,9 +78,11 @@ function Chessboard() {
 
     if (isObject(squares[index])) {
       if (doesChessPieceColorMatchPlayerTurn(squares[index], "white")) {
+        setIsSelected(Array(64).fill(false));
         return;
       }
       if (doesChessPieceColorMatchPlayerTurn(squares[index], "black")) {
+        setIsSelected(Array(64).fill(false));
         return;
       }
       const nextPossibleMoves = Array(64).fill(false);
