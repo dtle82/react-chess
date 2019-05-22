@@ -95,7 +95,7 @@ export const getBoardNotation = function(paramTarget) {
   file = file_arr[index % 8];
 
   let notation = file + rank;
-  console.log("algebraic notation", file + rank);
+  // console.log("algebraic notation", file + rank);
   //console.log("simple index", index);
 
   return { notation, index };

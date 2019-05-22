@@ -67,7 +67,7 @@ function Chessboard() {
     nextSquares[index] = squares[index];
     setSquares(nextSquares);
 
-    if (isSquareAlreadyClicked(isSelected[index])) {
+    if (isSquareNotClicked(isSelected[index])) {
       const nextSelected = Array(64).fill(false);
       nextSelected[index] = true;
       setIsSelected(nextSelected);
@@ -77,11 +77,21 @@ function Chessboard() {
     }
 
     if (isObject(squares[index])) {
-      if (doesChessPieceColorMatchPlayerTurn(squares[index], "white")) {
+      // console.log("possibleMoves", possibleMoves[index]);
+      if (
+        isWhiteNext &&
+        squares[index].getColor() === "black" &&
+        !possibleMoves[index]
+      ) {
+        // console.log("reject!", possibleMoves[index]);
         setIsSelected(Array(64).fill(false));
         return;
-      }
-      if (doesChessPieceColorMatchPlayerTurn(squares[index], "black")) {
+      } else if (
+        !isWhiteNext &&
+        squares[index].getColor() === "white" &&
+        !possibleMoves[index]
+      ) {
+        // console.log("reject!", possibleMoves[index]);
         setIsSelected(Array(64).fill(false));
         return;
       }
@@ -116,6 +126,8 @@ function Chessboard() {
       nextHistory.push(notation + ` (${squares[currentSelected].getColor()})`);
       setHistory(nextHistory);
       setSquares(nextSquares);
+
+      // clear possible moves and highlighted squares
       const nextPossibleMoves = Array(64).fill(false);
       setpossibleMoves(nextPossibleMoves);
       setIsSelected(Array(64).fill(false));
@@ -151,7 +163,7 @@ function Chessboard() {
     );
   }
 
-  function isSquareAlreadyClicked(square) {
+  function isSquareNotClicked(square) {
     return square === false;
   }
 
