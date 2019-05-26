@@ -155,24 +155,6 @@ function Chessboard() {
     }
   };
 
-  function doesChessPieceColorMatchPlayerTurn(piece, color) {
-    // match if the current piece clicked on and turn color is the same
-    switch (color) {
-      case "white":
-        if (piece.getColor() === "white" && !isWhiteNext) {
-          return true;
-        } else {
-          return false;
-        }
-      case "black":
-        if (piece.getColor() === "black" && isWhiteNext) {
-          return true;
-        } else {
-          return false;
-        }
-    }
-  }
-
   function squareContainsOpponent(opponentSquare, selfSquare) {
     //checks if possible capture square contains an opponent by checking if square contains object and that the colors do not match
     return (
