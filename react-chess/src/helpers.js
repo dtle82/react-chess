@@ -42,7 +42,9 @@ export const factory_piece = function(
       return this.isFree;
     },
     setBlocked: function() {
-      this.isFree = false;
+      if (this.getName() === "pawn") {
+        this.isFree = false;
+      }
     },
     setFree: function() {
       this.isFree = true;
@@ -64,6 +66,7 @@ export const factory_piece = function(
           this.captureSet = [-7, -9];
           break;
         default:
+          this.captureSet = [];
           break;
       }
     }

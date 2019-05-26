@@ -42,6 +42,16 @@ black_position[0] = factory_piece(
   [],
   "active"
 );
+black_position[1] = factory_piece(
+  "knight",
+  "♞",
+  "black",
+  [6, 10, 15, 17, -6, -10, -15, -17],
+  1,
+  [],
+  [],
+  "active"
+);
 black_position[7] = factory_piece(
   "rook",
   "♜",
@@ -68,7 +78,7 @@ const generated_black_pawn_position = black_pawn_position.map((pawn, idx) => {
 const black_combined_position = black_position.concat(
   generated_black_pawn_position
 );
-
+console.log("black_combined_position", black_combined_position);
 function Chessboard() {
   const [history, setHistory] = useContext(HistoryContext);
   const [isWhiteNext, setIsWhiteNext] = useContext(TurnContext);
@@ -116,6 +126,7 @@ function Chessboard() {
       }
       const nextPossibleMoves = Array(64).fill(false);
       squares[index].validate();
+      console.log("squares[index]", squares[index]);
       squares[index].getMoveset().forEach(idx => {
         if (!nextSquares[index + idx] && squares[index].getIsFree()) {
           nextPossibleMoves[index + idx] = true;
