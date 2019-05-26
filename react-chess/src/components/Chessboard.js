@@ -32,7 +32,16 @@ const white_combined_position = generated_white_pawn_position.concat(
 const neutral_positions = Array(4 * 8).fill("");
 const black_position = ["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"];
 const black_pawn_position = Array(8).fill("♟");
-
+black_position[0] = factory_piece(
+  "rook",
+  "♜",
+  "black",
+  [8, 16],
+  0,
+  [],
+  [],
+  "active"
+);
 const generated_black_pawn_position = black_pawn_position.map((pawn, idx) => {
   const obj = factory_piece(
     "pawn",
