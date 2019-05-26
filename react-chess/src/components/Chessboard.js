@@ -36,8 +36,18 @@ black_position[0] = factory_piece(
   "rook",
   "♜",
   "black",
-  [8, 16],
+  [8, 16, 24, 32, 40, 48, 56],
   0,
+  [],
+  [],
+  "active"
+);
+black_position[7] = factory_piece(
+  "rook",
+  "♜",
+  "black",
+  [8, 16, 24, 32, 40, 48, 56],
+  7,
   [],
   [],
   "active"
