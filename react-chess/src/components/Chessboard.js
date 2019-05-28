@@ -25,6 +25,26 @@ const generated_white_pawn_position = white_pawn_position.map((pawn, idx) => {
   );
   return obj;
 });
+white_position[1] = factory_piece(
+  "knight",
+  "♘",
+  "white",
+  [6, 10, 15, 17, -6, -10, -15, -17],
+  57,
+  [],
+  [],
+  "active"
+);
+white_position[6] = factory_piece(
+  "knight",
+  "♘",
+  "white",
+  [6, 10, 15, 17, -6, -10, -15, -17],
+  62,
+  [],
+  [],
+  "active"
+);
 const white_combined_position = generated_white_pawn_position.concat(
   white_position
 );
