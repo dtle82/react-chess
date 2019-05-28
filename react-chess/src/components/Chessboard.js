@@ -12,6 +12,126 @@ const bottomNotation = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
 const white_position = ["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"];
 const white_pawn_position = Array(8).fill("♙");
+const neutral_positions = Array(4 * 8).fill("");
+const black_position = ["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"];
+const black_pawn_position = Array(8).fill("♟");
+white_position[0] = factory_piece(
+  "rook",
+  "♖",
+  "white",
+  [
+    -16,
+    -24,
+    -32,
+    -40,
+    -48,
+    -56,
+    -8,
+    -7,
+    -6,
+    -5,
+    -4,
+    -3,
+    -2,
+    -1,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    16,
+    24,
+    32,
+    40,
+    48,
+    56
+  ],
+  56,
+  [],
+  [],
+  "active"
+);
+white_position[7] = factory_piece(
+  "rook",
+  "♖",
+  "white",
+  [
+    -16,
+    -24,
+    -32,
+    -40,
+    -48,
+    -56,
+    -8,
+    -7,
+    -6,
+    -5,
+    -4,
+    -3,
+    -2,
+    -1,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    16,
+    24,
+    32,
+    40,
+    48,
+    56
+  ],
+  63,
+  [],
+  [],
+  "active"
+);
+black_position[0] = factory_piece(
+  "rook",
+  "♜",
+  "black",
+  [
+    -16,
+    -24,
+    -32,
+    -40,
+    -48,
+    -56,
+    -8,
+    -7,
+    -6,
+    -5,
+    -4,
+    -3,
+    -2,
+    -1,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    16,
+    24,
+    32,
+    40,
+    48,
+    56
+  ],
+  0,
+  [],
+  [],
+  "active"
+);
 const generated_white_pawn_position = white_pawn_position.map((pawn, idx) => {
   const obj = factory_piece(
     "pawn",
@@ -48,10 +168,6 @@ white_position[6] = factory_piece(
 const white_combined_position = generated_white_pawn_position.concat(
   white_position
 );
-
-const neutral_positions = Array(4 * 8).fill("");
-const black_position = ["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"];
-const black_pawn_position = Array(8).fill("♟");
 black_position[0] = factory_piece(
   "rook",
   "♜",
