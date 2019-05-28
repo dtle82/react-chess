@@ -18,7 +18,7 @@ h1 {
 #sideinfo {
   float: left;
   width: 640px;
-  height: 640px;
+  min-height: 640px;
   margin: 20px;
   border: 1px solid #ccc;
   padding: 0px 20px;
