@@ -54,6 +54,106 @@ white_position[0] = factory_piece(
   [],
   "active"
 );
+white_position[1] = factory_piece(
+  "knight",
+  "♘",
+  "white",
+  [6, 10, 15, 17, -6, -10, -15, -17],
+  57,
+  [],
+  [],
+  "active"
+);
+white_position[2] = factory_piece(
+  "bishop",
+  "♗",
+  "white",
+  [
+    7,
+    14,
+    21,
+    28,
+    35,
+    42,
+    49,
+    56,
+    9,
+    18,
+    27,
+    36,
+    45,
+    56,
+    63,
+    -7,
+    -14,
+    -21,
+    -28,
+    -35,
+    -42,
+    -49,
+    -56,
+    -9,
+    -18,
+    -27,
+    -36,
+    -45,
+    -56
+  ],
+  2,
+  [],
+  [],
+  "active"
+);
+white_position[5] = factory_piece(
+  "bishop",
+  "♗",
+  "white",
+  [
+    7,
+    14,
+    21,
+    28,
+    35,
+    42,
+    49,
+    56,
+    9,
+    18,
+    27,
+    36,
+    45,
+    56,
+    63,
+    -7,
+    -14,
+    -21,
+    -28,
+    -35,
+    -42,
+    -49,
+    -56,
+    -9,
+    -18,
+    -27,
+    -36,
+    -45,
+    -56
+  ],
+  5,
+  [],
+  [],
+  "active"
+);
+white_position[6] = factory_piece(
+  "knight",
+  "♘",
+  "white",
+  [6, 10, 15, 17, -6, -10, -15, -17],
+  62,
+  [],
+  [],
+  "active"
+);
 white_position[7] = factory_piece(
   "rook",
   "♖",
@@ -145,26 +245,7 @@ const generated_white_pawn_position = white_pawn_position.map((pawn, idx) => {
   );
   return obj;
 });
-white_position[1] = factory_piece(
-  "knight",
-  "♘",
-  "white",
-  [6, 10, 15, 17, -6, -10, -15, -17],
-  57,
-  [],
-  [],
-  "active"
-);
-white_position[6] = factory_piece(
-  "knight",
-  "♘",
-  "white",
-  [6, 10, 15, 17, -6, -10, -15, -17],
-  62,
-  [],
-  [],
-  "active"
-);
+
 const white_combined_position = generated_white_pawn_position.concat(
   white_position
 );
