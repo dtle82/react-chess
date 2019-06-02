@@ -257,6 +257,46 @@ black_position[2] = factory_piece(
   [],
   "active"
 );
+black_position[5] = factory_piece(
+  "bishop",
+  "♝",
+  "black",
+  [
+    7,
+    14,
+    21,
+    28,
+    35,
+    42,
+    49,
+    56,
+    9,
+    18,
+    27,
+    36,
+    45,
+    56,
+    63,
+    -7,
+    -14,
+    -21,
+    -28,
+    -35,
+    -42,
+    -49,
+    -56,
+    -9,
+    -18,
+    -27,
+    -36,
+    -45,
+    -56
+  ],
+  5,
+  [],
+  [],
+  "active"
+);
 black_position[6] = factory_piece(
   "knight",
   "♞",
