@@ -499,7 +499,12 @@ function Chessboard() {
       const { notation } = getBoardNotation(
         document.getElementById("chessboard").children[currentSelected]
       );
-      nextHistory.push(notation + ` (${squares[currentSelected].getColor()})`);
+      nextHistory.push(
+        notation +
+          ` (${squares[currentSelected].getColor()} ${squares[
+            currentSelected
+          ].getName()})`
+      );
       setHistory(nextHistory);
       setSquares(nextSquares);
 
