@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import {
   getBoardNotation,
   isOdd,
@@ -7,6 +7,7 @@ import {
 } from "../helpers.js";
 import { HistoryContext } from "../Store";
 import { TurnContext } from "../Store";
+import soundfile from "../assets/Move.mp3";
 
 const bottomNotation = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
@@ -427,7 +428,8 @@ const black_combined_position = black_position.concat(
 console.log("black_combined_position", black_combined_position);
 
 const playSound = url => {
-  const audio = new Audio(url);
+  let audio = new Audio(url);
+  // let audio = new Audio("../assets/Move.mp3");
   audio.play();
 };
 
@@ -512,7 +514,7 @@ function Chessboard() {
           ].getName()})`
       );
       playSound(
-        "https://raw.githubusercontent.com/ornicar/lila/master/public/sound/standard/Move.mp3"
+        "https://raw.githubusercontent.com/ornicar/lila/master/public/sound/standard/Move.ogg"
       );
       setHistory(nextHistory);
       setSquares(nextSquares);
