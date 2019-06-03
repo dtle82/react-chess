@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   getBoardNotation,
   isOdd,
@@ -425,6 +425,12 @@ const black_combined_position = black_position.concat(
   generated_black_pawn_position
 );
 console.log("black_combined_position", black_combined_position);
+
+const playSound = url => {
+  const audio = new Audio(url);
+  audio.play();
+};
+
 function Chessboard() {
   const [history, setHistory] = useContext(HistoryContext);
   const [isWhiteNext, setIsWhiteNext] = useContext(TurnContext);
@@ -504,6 +510,9 @@ function Chessboard() {
           ` (${squares[currentSelected].getColor()} ${squares[
             currentSelected
           ].getName()})`
+      );
+      playSound(
+        "https://raw.githubusercontent.com/ornicar/lila/master/public/sound/standard/Move.mp3"
       );
       setHistory(nextHistory);
       setSquares(nextSquares);
