@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/react-chess/static/css/main.8b797912.chunk.css",
-    "main.js": "/react-chess/static/js/main.901709e8.chunk.js",
-    "main.js.map": "/react-chess/static/js/main.901709e8.chunk.js.map",
+    "main.css": "/react-chess/static/css/main.b377e587.chunk.css",
+    "main.js": "/react-chess/static/js/main.1801f764.chunk.js",
+    "main.js.map": "/react-chess/static/js/main.1801f764.chunk.js.map",
     "runtime~main.js": "/react-chess/static/js/runtime~main.590f6eee.js",
     "runtime~main.js.map": "/react-chess/static/js/runtime~main.590f6eee.js.map",
     "static/js/2.c2695c00.chunk.js": "/react-chess/static/js/2.c2695c00.chunk.js",
     "static/js/2.c2695c00.chunk.js.map": "/react-chess/static/js/2.c2695c00.chunk.js.map",
     "index.html": "/react-chess/index.html",
-    "precache-manifest.26135821ece457c4837f3953a9b4bc8b.js": "/react-chess/precache-manifest.26135821ece457c4837f3953a9b4bc8b.js",
+    "precache-manifest.924fbbeec0670107e3d4186872852cfc.js": "/react-chess/precache-manifest.924fbbeec0670107e3d4186872852cfc.js",
     "service-worker.js": "/react-chess/service-worker.js",
-    "static/css/main.8b797912.chunk.css.map": "/react-chess/static/css/main.8b797912.chunk.css.map",
+    "static/css/main.b377e587.chunk.css.map": "/react-chess/static/css/main.b377e587.chunk.css.map",
     "static/media/App.css": "/react-chess/static/media/wood-pattern.02464a71.png"
   }
 }
