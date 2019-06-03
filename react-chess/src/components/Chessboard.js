@@ -99,7 +99,17 @@ white_position[2] = factory_piece(
     -45,
     -56
   ],
-  2,
+  58,
+  [],
+  [],
+  "active"
+);
+white_position[4] = factory_piece(
+  "king",
+  "♔",
+  "white",
+  [-8, -1, 1, 8],
+  60,
   [],
   [],
   "active"
