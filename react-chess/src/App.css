@@ -50,7 +50,7 @@ h1 {
   background-color: #3163b8;
 }
 .black {
-  background-image: url("wood-pattern.png");
+  background-image: url("./assets/wood-pattern.png");
   float: left;
   width: 80px;
   height: 80px;
@@ -62,7 +62,7 @@ h1 {
 }
 
 .white {
-  background-image: url("wood-pattern.png");
+  background-image: url("./assets/wood-pattern.png");
   float: left;
   width: 80px;
   height: 80px;
