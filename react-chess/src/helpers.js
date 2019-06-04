@@ -118,6 +118,11 @@ export const alternateColor = function(color) {
   return color;
 };
 
+export const playSound = url => {
+  let audio = new Audio(url);
+  audio.play();
+};
+
 export const pieceReducer = function(object) {
   switch (object.emoji) {
     case "♖":

@@ -4,7 +4,8 @@ import {
   isOdd,
   alternateColor,
   factory_piece,
-  pieceReducer
+  pieceReducer,
+  playSound
 } from "../helpers.js";
 import { HistoryContext } from "../Store";
 import { TurnContext } from "../Store";
@@ -64,11 +65,6 @@ const black_combined_position = black_position.concat(
   generated_black_pawn_position
 );
 console.log("black_combined_position", black_combined_position);
-
-const playSound = url => {
-  let audio = new Audio(url);
-  audio.play();
-};
 
 function Chessboard() {
   const [history, setHistory] = useContext(HistoryContext);
