@@ -3,7 +3,8 @@ import {
   getBoardNotation,
   isOdd,
   alternateColor,
-  factory_piece
+  factory_piece,
+  pieceReducer
 } from "../helpers.js";
 import { HistoryContext } from "../Store";
 import { TurnContext } from "../Store";
@@ -16,55 +17,8 @@ const white_pawn_position = Array(8).fill("♙");
 const neutral_positions = Array(4 * 8).fill("");
 const black_position = ["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"];
 const black_pawn_position = Array(8).fill("♟");
-white_position[0] = factory_piece(
-  "rook",
-  "♖",
-  "white",
-  [
-    -16,
-    -24,
-    -32,
-    -40,
-    -48,
-    -56,
-    -8,
-    -7,
-    -6,
-    -5,
-    -4,
-    -3,
-    -2,
-    -1,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    16,
-    24,
-    32,
-    40,
-    48,
-    56
-  ],
-  56,
-  [],
-  [],
-  "active"
-);
-white_position[1] = factory_piece(
-  "knight",
-  "♘",
-  "white",
-  [6, 10, 15, 17, -6, -10, -15, -17],
-  57,
-  [],
-  [],
-  "active"
-);
+white_position[0] = pieceReducer("♖");
+white_position[1] = pieceReducer("♘");
 white_position[2] = factory_piece(
   "bishop",
   "♗",

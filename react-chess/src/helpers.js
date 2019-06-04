@@ -116,3 +116,59 @@ export const alternateColor = function(color) {
   }
   return color;
 };
+
+export const pieceReducer = function(emoji) {
+  switch (emoji) {
+    case "♖":
+      return factory_piece(
+        "rook",
+        "♖",
+        "white",
+        [
+          -16,
+          -24,
+          -32,
+          -40,
+          -48,
+          -56,
+          -8,
+          -7,
+          -6,
+          -5,
+          -4,
+          -3,
+          -2,
+          -1,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          16,
+          24,
+          32,
+          40,
+          48,
+          56
+        ],
+        56,
+        [],
+        [],
+        "active"
+      );
+    case "♘":
+      return factory_piece(
+        "knight",
+        "♘",
+        "white",
+        [6, 10, 15, 17, -6, -10, -15, -17],
+        57,
+        [],
+        [],
+        "active"
+      );
+  }
+};
