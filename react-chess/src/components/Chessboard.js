@@ -66,7 +66,7 @@ const generated_black_pawn_position = black_pawn_position.map((pawn, idx) => {
 const black_combined_position = black_position.concat(
   generated_black_pawn_position
 );
-console.log("black_combined_position", black_combined_position);
+// console.log("black_combined_position", black_combined_position);
 
 function Chessboard() {
   const [history, setHistory] = useContext(HistoryContext);
