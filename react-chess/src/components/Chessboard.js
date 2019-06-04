@@ -26,7 +26,7 @@ white_position[7] = pieceReducer({ emoji: "♖", notation: "h1" });
 const generated_white_pawn_position = white_pawn_position.map((pawn, idx) => {
   const obj = factory_piece(
     "pawn",
-    pawn,
+    "♙",
     "white",
     [-8, -16],
     idx + 48,
