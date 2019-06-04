@@ -87,6 +87,7 @@ export const factory_piece = function(
 
 export const getBoardNotation = function(paramTarget) {
   let chessboard = document.getElementById("chessboard");
+  //https://stackoverflow.com/questions/11761881/javascript-dom-find-element-index-in-container
   let index = Array.prototype.indexOf.call(chessboard.children, paramTarget);
   let rank;
   let file;
@@ -117,8 +118,8 @@ export const alternateColor = function(color) {
   return color;
 };
 
-export const pieceReducer = function(emoji) {
-  switch (emoji) {
+export const pieceReducer = function(object) {
+  switch (object.emoji) {
     case "♖":
       return factory_piece(
         "rook",

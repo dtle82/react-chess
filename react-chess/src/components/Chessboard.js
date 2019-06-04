@@ -8,7 +8,6 @@ import {
 } from "../helpers.js";
 import { HistoryContext } from "../Store";
 import { TurnContext } from "../Store";
-import soundfile from "../assets/Move.mp3";
 
 const bottomNotation = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
@@ -17,10 +16,10 @@ const white_pawn_position = Array(8).fill("♙");
 const neutral_positions = Array(4 * 8).fill("");
 const black_position = ["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"];
 const black_pawn_position = Array(8).fill("♟");
-white_position[0] = pieceReducer("♖");
-white_position[1] = pieceReducer("♘");
-white_position[2] = pieceReducer("♗");
-white_position[4] = pieceReducer("♔");
+white_position[0] = pieceReducer({ emoji: "♖", notation: "a1" });
+white_position[1] = pieceReducer({ emoji: "♘", notation: "b1" });
+white_position[2] = pieceReducer({ emoji: "♗", notation: "c1" });
+white_position[4] = pieceReducer({ emoji: "♔", notation: "d1" });
 white_position[5] = factory_piece(
   "bishop",
   "♗",
@@ -405,6 +404,7 @@ function Chessboard() {
     if (possibleMoves[index]) {
       const nextSquares = squares.slice();
       const currentSelected = Array.prototype.indexOf.call(isSelected, true);
+      console.log("currentSelected", currentSelected);
       nextSquares[currentSelected] = false;
       nextSquares[index] = squares[currentSelected];
       squares[currentSelected].setLocation(index);
