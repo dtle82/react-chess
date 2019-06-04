@@ -40,55 +40,8 @@ const generated_white_pawn_position = white_pawn_position.map((pawn, idx) => {
 const white_combined_position = generated_white_pawn_position.concat(
   white_position
 );
-black_position[0] = factory_piece(
-  "rook",
-  "♜",
-  "black",
-  [
-    -16,
-    -24,
-    -32,
-    -40,
-    -48,
-    -56,
-    -8,
-    -7,
-    -6,
-    -5,
-    -4,
-    -3,
-    -2,
-    -1,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    16,
-    24,
-    32,
-    40,
-    48,
-    56
-  ],
-  0,
-  [],
-  [],
-  "active"
-);
-black_position[1] = factory_piece(
-  "knight",
-  "♞",
-  "black",
-  [6, 10, 15, 17, -6, -10, -15, -17],
-  1,
-  [],
-  [],
-  "active"
-);
+black_position[0] = pieceReducer({ emoji: "♜", notation: "a8" });
+black_position[1] = pieceReducer({ emoji: "♞", notation: "a8" });
 black_position[2] = factory_piece(
   "bishop",
   "♝",
@@ -300,13 +253,16 @@ function Chessboard() {
       const nextPossibleMoves = Array(64).fill(false);
       squares[index].validate();
       console.log("squares[index]", squares[index]);
-      squares[index].getMoveset().forEach(idx => {
-        if (!nextSquares[index + idx] && squares[index].getIsFree()) {
-          nextPossibleMoves[index + idx] = true;
-        } else {
-          squares[index].setBlocked();
-        }
-      });
+      squares[index]
+        .getMoveset()
+        .flat()
+        .forEach(idx => {
+          if (!nextSquares[index + idx] && squares[index].getIsFree()) {
+            nextPossibleMoves[index + idx] = true;
+          } else {
+            squares[index].setBlocked();
+          }
+        });
       squares[index].getCaptureSet().forEach(idx => {
         if (squareContainsOpponent(nextSquares[index + idx], squares[index])) {
           nextPossibleMoves[index + idx] = true;
