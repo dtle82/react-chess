@@ -1,5 +1,5 @@
 import React from "react";
-import "./side-notation.css";
+import "./Side-Notation.css";
 
 function SideNotation() {
   const side_container = [];

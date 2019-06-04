@@ -1,5 +1,5 @@
 import React from "react";
-import SideNotation from "./components/side-notation";
+import SideNotation from "./components/Side-Notation";
 import Chessboard from "./components/Chessboard";
 import Sideinfo from "./components/Sideinfo";
 import Store from "./Store";
