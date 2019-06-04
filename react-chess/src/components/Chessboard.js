@@ -168,8 +168,6 @@ function Chessboard() {
 
   function squareContainsOpponent(opponentSquare, selfSquare) {
     //checks if possible capture square contains an opponent by checking if square contains object and that the colors do not match
-    console.log("opponentSquare", opponentSquare);
-    console.log("selfSquare", selfSquare);
     return (
       opponentSquare &&
       opponentSquare.hasOwnProperty("color") &&
