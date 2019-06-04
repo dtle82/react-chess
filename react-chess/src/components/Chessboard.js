@@ -21,55 +21,8 @@ white_position[1] = pieceReducer({ emoji: "♘", notation: "b1" });
 white_position[2] = pieceReducer({ emoji: "♗", notation: "c1" });
 white_position[4] = pieceReducer({ emoji: "♔", notation: "d1" });
 white_position[5] = pieceReducer({ emoji: "♗", notation: "f1" });
-white_position[6] = factory_piece(
-  "knight",
-  "♘",
-  "white",
-  [6, 10, 15, 17, -6, -10, -15, -17],
-  62,
-  [],
-  [],
-  "active"
-);
-white_position[7] = factory_piece(
-  "rook",
-  "♖",
-  "white",
-  [
-    -16,
-    -24,
-    -32,
-    -40,
-    -48,
-    -56,
-    -8,
-    -7,
-    -6,
-    -5,
-    -4,
-    -3,
-    -2,
-    -1,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    16,
-    24,
-    32,
-    40,
-    48,
-    56
-  ],
-  63,
-  [],
-  [],
-  "active"
-);
+white_position[6] = pieceReducer({ emoji: "♘", notation: "g1" });
+white_position[7] = pieceReducer({ emoji: "♖", notation: "h1" });
 const generated_white_pawn_position = white_pawn_position.map((pawn, idx) => {
   const obj = factory_piece(
     "pawn",
