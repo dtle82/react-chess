@@ -45,6 +45,7 @@ const white_combined_position = generated_white_pawn_position.concat(
 black_position[0] = pieceReducer({ emoji: "♜", notation: "a8" });
 black_position[1] = pieceReducer({ emoji: "♞", notation: "b8" });
 black_position[2] = pieceReducer({ emoji: "♝", notation: "c8" });
+black_position[3] = pieceReducer({ emoji: "♛", notation: "d8" });
 black_position[4] = pieceReducer({ emoji: "♚", notation: "e8" });
 black_position[5] = pieceReducer({ emoji: "♝", notation: "f8" });
 black_position[6] = pieceReducer({ emoji: "♞", notation: "g8" });
