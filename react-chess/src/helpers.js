@@ -217,5 +217,16 @@ export const pieceReducer = function(object) {
         [],
         "active"
       );
+    case "♚":
+      return factory_piece(
+        "king",
+        "♚",
+        "black",
+        [-8, -1, 1, 8],
+        object.notation,
+        [],
+        [],
+        "active"
+      );
   }
 };
