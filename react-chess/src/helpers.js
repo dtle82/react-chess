@@ -155,7 +155,7 @@ export const pieceReducer = function(object) {
           48,
           56
         ],
-        56,
+        object.notation,
         [],
         [],
         "active"
@@ -166,7 +166,7 @@ export const pieceReducer = function(object) {
         "♘",
         "white",
         [6, 10, 15, 17, -6, -10, -15, -17],
-        57,
+        object.notation,
         [],
         [],
         "active"
@@ -207,7 +207,7 @@ export const pieceReducer = function(object) {
           -45,
           -56
         ],
-        58,
+        object.notation,
         [],
         [],
         "active"
@@ -218,7 +218,7 @@ export const pieceReducer = function(object) {
         "♔",
         "white",
         [-8, -1, 1, 8],
-        60,
+        object.notation,
         [],
         [],
         "active"

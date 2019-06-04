@@ -20,46 +20,7 @@ white_position[0] = pieceReducer({ emoji: "♖", notation: "a1" });
 white_position[1] = pieceReducer({ emoji: "♘", notation: "b1" });
 white_position[2] = pieceReducer({ emoji: "♗", notation: "c1" });
 white_position[4] = pieceReducer({ emoji: "♔", notation: "d1" });
-white_position[5] = factory_piece(
-  "bishop",
-  "♗",
-  "white",
-  [
-    7,
-    14,
-    21,
-    28,
-    35,
-    42,
-    49,
-    56,
-    9,
-    18,
-    27,
-    36,
-    45,
-    56,
-    63,
-    -7,
-    -14,
-    -21,
-    -28,
-    -35,
-    -42,
-    -49,
-    -56,
-    -9,
-    -18,
-    -27,
-    -36,
-    -45,
-    -56
-  ],
-  5,
-  [],
-  [],
-  "active"
-);
+white_position[5] = pieceReducer({ emoji: "♗", notation: "f1" });
 white_position[6] = factory_piece(
   "knight",
   "♘",
@@ -404,15 +365,16 @@ function Chessboard() {
     if (possibleMoves[index]) {
       const nextSquares = squares.slice();
       const currentSelected = Array.prototype.indexOf.call(isSelected, true);
-      console.log("currentSelected", currentSelected);
-      nextSquares[currentSelected] = false;
-      nextSquares[index] = squares[currentSelected];
-      squares[currentSelected].setLocation(index);
-      squares[currentSelected].updateHistory(currentSelected);
-      const nextHistory = history.slice();
       const { notation } = getBoardNotation(
         document.getElementById("chessboard").children[currentSelected]
       );
+      console.log("currentSelected", currentSelected);
+      nextSquares[currentSelected] = false;
+      nextSquares[index] = squares[currentSelected];
+      squares[currentSelected].setLocation(notation);
+      squares[currentSelected].updateHistory(currentSelected);
+      const nextHistory = history.slice();
+
       nextHistory.push(
         notation +
           ` (${squares[currentSelected].getColor()} ${squares[
