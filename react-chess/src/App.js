@@ -10,9 +10,15 @@ function App() {
     <Store>
       <div className="App">
         <h1>React Chess</h1>
-        <SideNotation />
-        <Chessboard />
-        <Sideinfo />
+        <div className="grid-container">
+          <div className="grid-item">
+            <SideNotation />
+            <Chessboard />
+          </div>
+          <div className="grid-item">
+            <Sideinfo />
+          </div>
+        </div>
       </div>
     </Store>
   );
