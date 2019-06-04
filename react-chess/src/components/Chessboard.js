@@ -67,7 +67,6 @@ console.log("black_combined_position", black_combined_position);
 
 const playSound = url => {
   let audio = new Audio(url);
-  // let audio = new Audio("../assets/Move.mp3");
   audio.play();
 };
 
