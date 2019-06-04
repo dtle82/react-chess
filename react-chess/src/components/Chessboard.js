@@ -19,56 +19,8 @@ const black_position = ["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"];
 const black_pawn_position = Array(8).fill("♟");
 white_position[0] = pieceReducer("♖");
 white_position[1] = pieceReducer("♘");
-white_position[2] = factory_piece(
-  "bishop",
-  "♗",
-  "white",
-  [
-    7,
-    14,
-    21,
-    28,
-    35,
-    42,
-    49,
-    56,
-    9,
-    18,
-    27,
-    36,
-    45,
-    56,
-    63,
-    -7,
-    -14,
-    -21,
-    -28,
-    -35,
-    -42,
-    -49,
-    -56,
-    -9,
-    -18,
-    -27,
-    -36,
-    -45,
-    -56
-  ],
-  58,
-  [],
-  [],
-  "active"
-);
-white_position[4] = factory_piece(
-  "king",
-  "♔",
-  "white",
-  [-8, -1, 1, 8],
-  60,
-  [],
-  [],
-  "active"
-);
+white_position[2] = pieceReducer("♗");
+white_position[4] = pieceReducer("♔");
 white_position[5] = factory_piece(
   "bishop",
   "♗",

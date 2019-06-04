@@ -170,5 +170,57 @@ export const pieceReducer = function(emoji) {
         [],
         "active"
       );
+    case "♗":
+      return factory_piece(
+        "bishop",
+        "♗",
+        "white",
+        [
+          7,
+          14,
+          21,
+          28,
+          35,
+          42,
+          49,
+          56,
+          9,
+          18,
+          27,
+          36,
+          45,
+          56,
+          63,
+          -7,
+          -14,
+          -21,
+          -28,
+          -35,
+          -42,
+          -49,
+          -56,
+          -9,
+          -18,
+          -27,
+          -36,
+          -45,
+          -56
+        ],
+        58,
+        [],
+        [],
+        "active"
+      );
+    case "♔":
+      return factory_piece(
+        "king",
+        "♔",
+        "white",
+        [-8, -1, 1, 8],
+        60,
+        [],
+        [],
+        "active"
+      );
   }
 };
