@@ -138,7 +138,7 @@ function Chessboard() {
       const nextSquares = squares.slice();
       const currentSelected = Array.prototype.indexOf.call(isSelected, true);
       const { notation } = getBoardNotation(
-        document.getElementById("chessboard").children[currentSelected]
+        document.getElementById("chessboard").children[index]
       );
       console.log("currentSelected", currentSelected);
       nextSquares[currentSelected] = false;
